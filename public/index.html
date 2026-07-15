@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Controle de Salgados</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;background:#f4f6fb;color:#222;font-size:14px}
+a{color:#4472C4}
+
+/* LOGIN */
+#login-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:24px}
+#login-screen .card{background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.1);padding:36px 32px;width:100%;max-width:360px;text-align:center}
+#login-screen h1{color:#4472C4;font-size:22px;margin-bottom:6px}
+#login-screen p{color:#666;margin-bottom:24px;font-size:13px}
+#login-screen input{width:100%;padding:10px 14px;border:1px solid #ccd;border-radius:8px;font-size:15px;margin-bottom:12px;outline:none}
+#login-screen input:focus{border-color:#4472C4}
+#login-screen button{width:100%;padding:11px;background:#4472C4;color:#fff;border:none;border-radius:8px;font-size:15px;cursor:pointer;font-weight:bold}
+#login-screen button:hover{background:#3560b0}
+#login-error{color:#c00000;font-size:13px;margin-top:8px;min-height:20px}
+
+/* LAYOUT */
+#app{display:none;flex-direction:column;min-height:100vh}
+header{background:#4472C4;color:#fff;padding:12px 16px}
+header h1{font-size:18px;font-weight:bold}
+
+/* TABS */
+.tabs{background:#fff;border-bottom:2px solid #e0e4ef;overflow-x:auto;white-space:nowrap}
+.tabs button{display:inline-block;padding:10px 18px;border:none;background:none;font-size:14px;cursor:pointer;color:#555;font-weight:500;border-bottom:3px solid transparent;transition:.15s}
+.tabs button.active{color:#4472C4;border-bottom-color:#4472C4;font-weight:bold}
+.tabs button:hover:not(.active){color:#333}
+
+/* FILTERS */
+.filters{background:#fff;padding:10px 16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;border-bottom:1px solid #e0e4ef}
+.filters select,.filters input{padding:7px 10px;border:1px solid #ccd;border-radius:7px;font-size:13px;outline:none}
+.filters select:focus,.filters input:focus{border-color:#4472C4}
+.filters label{font-size:12px;color:#666;font-weight:500}
+
+/* CONTENT */
+.tab-content{display:none;padding:16px}
+.tab-content.active{display:block}
+
+/* CARDS KPI */
+.kpi-row{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:18px}
+.kpi{background:#fff;border-radius:10px;box-shadow:0 1px 6px rgba(0,0,0,.08);padding:16px 20px;flex:1;min-width:140px}
+.kpi .label{font-size:12px;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.kpi .value{font-size:22px;font-weight:bold}
+.kpi.green .value{color:#0f8a3c}
+.kpi.red .value{color:#c00000}
+.kpi.blue .value{color:#4472C4}
+
+/* TABLES */
+.table-wrap{overflow-x:auto;border-radius:10px;box-shadow:0 1px 6px rgba(0,0,0,.08)}
+table{width:100%;border-collapse:collapse;background:#fff}
+th{background:#4472C4;color:#fff;padding:9px 12px;text-align:left;font-size:13px;white-space:nowrap}
+td{padding:8px 12px;border-bottom:1px solid #f0f2f8;font-size:13px;vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#f7f8fd}
+tr.obs-row td{background:#fffde7}
+.obs-text{font-size:11px;color:#888;font-style:italic;margin-top:2px}
+
+/* BADGES/BUTTONS */
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:bold;cursor:pointer;border:none;white-space:nowrap}
+.badge.pago{background:#d4f0e2;color:#0f8a3c}
+.badge.nao_pago{background:#fde8e8;color:#c00000}
+.btn{padding:7px 14px;border:none;border-radius:7px;cursor:pointer;font-size:13px;font-weight:500}
+.btn-primary{background:#4472C4;color:#fff}
+.btn-primary:hover{background:#3560b0}
+.btn-danger{background:#c00000;color:#fff}
+.btn-danger:hover{background:#a00000}
+.btn-sm{padding:4px 9px;font-size:12px;border-radius:5px}
+.btn-del{background:#fde8e8;color:#c00000;border:none;border-radius:5px;padding:3px 8px;cursor:pointer;font-size:13px}
+.btn-del:hover{background:#c00000;color:#fff}
+.btn-link{background:none;border:none;color:#4472C4;cursor:pointer;font-size:13px;text-decoration:underline;padding:0}
+
+/* FORMS */
+.form-card{background:#fff;border-radius:10px;box-shadow:0 1px 6px rgba(0,0,0,.08);padding:16px;margin-bottom:16px}
+.form-card h3{font-size:15px;color:#4472C4;margin-bottom:12px;font-weight:bold}
+.form-row{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end}
+.form-group{display:flex;flex-direction:column;gap:4px;flex:1;min-width:120px}
+.form-group label{font-size:12px;color:#666;font-weight:500}
+.form-group input,.form-group select,.form-group textarea{padding:8px 10px;border:1px solid #ccd;border-radius:7px;font-size:13px;outline:none;width:100%}
+.form-group input:focus,.form-group select:focus{border-color:#4472C4}
+
+/* INADIMPLENTES */
+.inadimplente-list{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
+.inadimplente-item{background:#fff;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,.08);padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.inadimplente-item .nome{font-weight:bold}
+.inadimplente-item .valor{color:#c00000;font-weight:bold}
+
+/* ESTOQUE NEGATIVO */
+.neg{color:#c00000;font-weight:bold}
+
+/* SECTION TITLE */
+.section-title{font-size:15px;font-weight:bold;color:#333;margin:0 0 10px}
+
+/* LOADING */
+#loading{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(255,255,255,.8);display:flex;align-items:center;justify-content:center;z-index:999;font-size:16px;color:#4472C4;display:none}
+
+/* TOP BAR */
+.top-bar{display:flex;justify-content:space-between;align-items:center;padding:8px 16px;background:#fff;border-bottom:1px solid #e0e4ef}
+.top-bar .site-name{font-weight:bold;color:#4472C4;font-size:15px}
+.btn-logout{background:none;border:1px solid #ccc;border-radius:6px;padding:4px 10px;cursor:pointer;font-size:12px;color:#666}
+.btn-logout:hover{border-color:#c00000;color:#c00000}
+
+@media(max-width:500px){
+  .kpi{min-width:calc(50% - 6px)}
+  .form-group{min-width:100%}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div id="loading">Carregando...</div>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="card">
+    <h1>ð¥ Controle de Salgados</h1>
+    <p>Digite a senha para acessar</p>
+    <input type="password" id="login-input" placeholder="Senha" onkeydown="if(event.key==='Enter')doLogin()">
+    <button onclick="doLogin()">Entrar</button>
+    <div id="login-error"></div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div class="top-bar">
+    <span class="site-name">ð¥ Controle de Salgados</span>
+    <button class="btn-logout" onclick="doLogout()">Sair</button>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="active" onclick="switchTab('resumo',this)">Resumo</button>
+    <button onclick="switchTab('lancamentos',this)">LanÃ§amentos</button>
+    <button onclick="switchTab('reposicao',this)">ReposiÃ§Ã£o</button>
+    <button onclick="switchTab('estoque',this)">Estoque</button>
+    <button onclick="switchTab('precos',this)">PreÃ§os</button>
+    <button onclick="switchTab('banco',this)">Banco</button>
+  </div>
+
+  <!-- GLOBAL FILTERS -->
+  <div class="filters">
+    <div style="display:flex;align-items:center;gap:6px">
+      <label for="f-mes">MÃªs:</label>
+      <select id="f-mes" onchange="render()"></select>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <label for="f-nome">Pessoa:</label>
+      <input type="text" id="f-nome" placeholder="Buscar..." oninput="render()" style="width:160px">
+    </div>
+  </div>
+
+  <!-- TAB: RESUMO -->
+  <div id="tab-resumo" class="tab-content active">
+    <div class="kpi-row" id="kpi-resumo"></div>
+    <div class="section-title">Inadimplentes (a cobrar)</div>
+    <div class="inadimplente-list" id="inadimplente-list"></div>
+    <div class="section-title">Por pessoa</div>
+    <div class="table-wrap"><table id="tab-por-pessoa">
+      <thead><tr><th>Nome</th><th>Total comprado</th><th>Total pago</th><th>A receber</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+  </div>
+
+  <!-- TAB: LANÃAMENTOS -->
+  <div id="tab-lancamentos" class="tab-content">
+    <div class="form-card">
+      <h3>Nova venda</h3>
+      <div class="form-row">
+        <div class="form-group"><label>Data</label><input type="date" id="v-data"></div>
+        <div class="form-group"><label>Nome</label><input type="text" id="v-nome" placeholder="Nome da pessoa"></div>
+        <div class="form-group"><label>Item</label><select id="v-item"></select></div>
+        <div class="form-group"><label>Qtd</label><input type="number" id="v-qtd" value="1" min="1"></div>
+        <div class="form-group"><label>Status</label>
+          <select id="v-status"><option value="pago">Pago</option><option value="nao_pago">NÃ£o pago</option></select>
+        </div>
+        <div class="form-group"><label>Obs (opcional)</label><input type="text" id="v-obs" placeholder="ObservaÃ§Ã£o"></div>
+        <div class="form-group" style="justify-content:flex-end">
+          <button class="btn btn-primary" onclick="addVenda()">Adicionar</button>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <div class="section-title" style="margin:0">Vendas</div>
+      <button class="btn btn-danger btn-sm" onclick="limparTudo()">ð Limpar tudo</button>
+    </div>
+    <div class="table-wrap"><table id="tab-vendas">
+      <thead><tr><th>Data</th><th>Nome</th><th>Item</th><th>Qtd</th><th>Valor</th><th>Status</th><th></th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+  </div>
+
+  <!-- TAB: REPOSIÃÃO -->
+  <div id="tab-reposicao" class="tab-content">
+    <div class="form-card">
+      <h3>Registrar reposiÃ§Ã£o</h3>
+      <div class="form-row">
+        <div class="form-group"><label>Data</label><input type="date" id="r-data"></div>
+        <div class="form-group"><label>Item</label><select id="r-item"></select></div>
+        <div class="form-group"><label>Qtd</label><input type="number" id="r-qtd" value="1" min="1"></div>
+        <div class="form-group" style="justify-content:flex-end">
+          <button class="btn btn-primary" onclick="addReposicao()">Adicionar</button>
+        </div>
+      </div>
+    </div>
+    <div class="table-wrap"><table id="tab-repos">
+      <thead><tr><th>Data</th><th>Item</th><th>Qtd</th><th></th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+  </div>
+
+  <!-- TAB: ESTOQUE -->
+  <div id="tab-estoque" class="tab-content">
+    <div class="table-wrap"><table id="tab-est">
+      <thead><tr><th>Item</th><th>Total reposto</th><th>Total vendido</th><th>Estoque atual</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+  </div>
+
+  <!-- TAB: PREÃOS -->
+  <div id="tab-precos" class="tab-content">
+    <div class="form-card">
+      <h3>Novo item</h3>
+      <div class="form-row">
+        <div class="form-group"><label>Nome do item</label><input type="text" id="p-nome" placeholder="Ex: Pastel"></div>
+        <div class="form-group"><label>PreÃ§o (R$)</label><input type="number" id="p-preco" value="10" min="0" step="0.5"></div>
+        <div class="form-group" style="justify-content:flex-end">
+          <button class="btn btn-primary" onclick="addPreco()">Adicionar</button>
+        </div>
+      </div>
+    </div>
+    <div class="table-wrap"><table id="tab-prec">
+      <thead><tr><th>Item</th><th>PreÃ§o (R$)</th><th></th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+  </div>
+
+  <!-- TAB: BANCO -->
+  <div id="tab-banco" class="tab-content">
+    <div class="kpi-row" id="kpi-banco"></div>
+    <div class="form-card" style="margin-bottom:12px">
+      <div class="form-row" style="align-items:center">
+        <div class="form-group" style="flex:0 0 auto">
+          <label>Saldo inicial (R$)</label>
+          <input type="number" id="b-saldo-inicial" step="0.01" style="width:160px">
+        </div>
+        <button class="btn btn-primary" style="margin-top:20px" onclick="saveSaldoInicial()">Salvar</button>
+      </div>
+    </div>
+    <div class="form-card">
+      <h3>Nova movimentaÃ§Ã£o manual</h3>
+      <div class="form-row">
+        <div class="form-group"><label>Data</label><input type="date" id="b-data"></div>
+        <div class="form-group"><label>Tipo</label>
+          <select id="b-tipo"><option value="entrada">Entrada</option><option value="saida">SaÃ­da</option></select>
+        </div>
+        <div class="form-group"><label>DescriÃ§Ã£o</label><input type="text" id="b-desc" placeholder="Ex: Compra de ingredientes"></div>
+        <div class="form-group"><label>Valor (R$)</label><input type="number" id="b-valor" min="0" step="0.01" value="0"></div>
+        <div class="form-group" style="justify-content:flex-end">
+          <button class="btn btn-primary" onclick="addMovimento()">Adicionar</button>
+        </div>
+      </div>
+    </div>
+    <div class="section-title">MovimentaÃ§Ãµes</div>
+    <div class="table-wrap"><table id="tab-banco-mov">
+      <thead><tr><th>Data</th><th>Tipo</th><th>DescriÃ§Ã£o</th><th>Valor</th><th></th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+  </div>
+
+</div><!-- /app -->
+
+<script>
+// âââ STATE âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+let state = null;
+let pwd = '';
+
+const API = '/api/data';
+
+function uid() {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2,7);
+}
+function fmt(v) {
+  return 'R$ ' + (Number(v)||0).toFixed(2).replace('.',',');
+}
+function today() {
+  return new Date().toISOString().slice(0,10);
+}
+function fmtDate(d) {
+  if(!d) return '';
+  const [y,m,dd] = d.split('-');
+  return `${dd}/${m}/${y}`;
+}
+
+// âââ AUTH âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+async function doLogin() {
+  const input = document.getElementById('login-input');
+  const err = document.getElementById('login-error');
+  pwd = input.value.trim();
+  if (!pwd) { err.textContent = 'Digite a senha.'; return; }
+  err.textContent = '';
+  showLoading(true);
+  try {
+    const ok = await fetchData();
+    if (ok) {
+      localStorage.setItem('salgados_pwd', pwd);
+      showApp();
+    } else {
+      err.textContent = 'Senha incorreta.';
+      pwd = '';
+    }
+  } catch(e) {
+    err.textContent = 'Erro de conexÃ£o. Tente novamente.';
+  }
+  showLoading(false);
+}
+
+function doLogout() {
+  localStorage.removeItem('salgados_pwd');
+  pwd = '';
+  state = null;
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('login-input').value = '';
+}
+
+async function autoLogin() {
+  const saved = localStorage.getItem('salgados_pwd');
+  if (!saved) return;
+  pwd = saved;
+  showLoading(true);
+  try {
+    const ok = await fetchData();
+    if (ok) { showApp(); }
+    else { localStorage.removeItem('salgados_pwd'); pwd = ''; }
+  } catch(e) {}
+  showLoading(false);
+}
+
+function showApp() {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'flex';
+  document.getElementById('app').style.flexDirection = 'column';
+  setDefaultDates();
+  render();
+}
+
+// âââ API ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+async function fetchData() {
+  const res = await fetch(API, { headers: { 'x-site-password': pwd } });
+  if (res.status === 401) return false;
+  if (!res.ok) throw new Error('API error ' + res.status);
+  state = await res.json();
+  return true;
+}
+
+async function saveData() {
+  showLoading(true);
+  try {
+    const res = await fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-site-password': pwd },
+      body: JSON.stringify(state)
+    });
+    if (res.status === 401) { doLogout(); return; }
+    if (!res.ok) throw new Error('Save error');
+  } finally {
+    showLoading(false);
+  }
+  render();
+}
+
+// âââ UI HELPERS âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+function showLoading(v) {
+  document.getElementById('loading').style.display = v ? 'flex' : 'none';
+}
+
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tabs button').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+function setDefaultDates() {
+  const t = today();
+  ['v-data','r-data','b-data'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = t;
+  });
+}
+
+// âââ FILTERS ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+function getFilter() {
+  return {
+    mes: document.getElementById('f-mes').value,
+    nome: document.getElementById('f-nome').value.trim().toLowerCase()
+  };
+}
+
+function vendaMatchFilter(v, f) {
+  if (f.mes && f.mes !== 'todos') {
+    if (!v.data || v.data.slice(0,7) !== f.mes) return false;
+  }
+  if (f.nome && !v.nome.toLowerCase().includes(f.nome)) return false;
+  return true;
+}
+
+function buildMesOptions() {
+  const sel = document.getElementById('f-mes');
+  const current = sel.value;
+  const meses = new Set();
+  (state.vendas||[]).forEach(v => { if(v.data) meses.add(v.data.slice(0,7)); });
+  const sorted = [...meses].sort().reverse();
+  sel.innerHTML = '<option value="todos">Todos os meses</option>';
+  sorted.forEach(m => {
+    const [y,mo] = m.split('-');
+    const label = new Date(+y, +mo-1, 1).toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
+    const opt = document.createElement('option');
+    opt.value = m; opt.textContent = label.charAt(0).toUpperCase()+label.slice(1);
+    sel.appendChild(opt);
+  });
+  if (current) sel.value = current;
+}
+
+// âââ RENDER âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+function render() {
+  if (!state) return;
+  buildMesOptions();
+  buildItemDropdowns();
+  const f = getFilter();
+  renderResumo(f);
+  renderLancamentos(f);
+  renderReposicao();
+  renderEstoque();
+  renderPrecos();
+  renderBanco();
+}
+
+function precoItem(nome) {
+  return (state.precos && state.precos[nome]) || 0;
+}
+
+// âââ RESUMO âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+function renderResumo(f) {
+  const vendas = (state.vendas||[]).filter(v => vendaMatchFilter(v, f));
+  let recebido = 0, aReceber = 0;
+  vendas.forEach(v => {
+    const val = precoItem(v.item) * (v.qtd||1);
+    if (v.status === 'pago') recebido += val;
+    else aReceber += val;
+  });
+  const total = recebido + aReceber;
+
+  document.getElementById('kpi-resumo').innerHTML = `
+    <div class="kpi green"><div class="label">JÃ¡ recebido</div><div class="value">${fmt(recebido)}</div></div>
+    <div class="kpi red"><div class="label">A receber</div><div class="value">${fmt(aReceber)}</div></div>
+    <div class="kpi blue"><div class="label">Total de vendas</div><div class="value">${fmt(total)}</div></div>
+  `;
+
+  // Por pessoa
+  const pessoas = {};
+  vendas.forEach(v => {
+    if (!pessoas[v.nome]) pessoas[v.nome] = {comprado:0, pago:0, aReceber:0};
+    const val = precoItem(v.item) * (v.qtd||1);
+    pessoas[v.nome].comprado += val;
+    if (v.status === 'pago') pessoas[v.nome].pago += val;
+    else pessoas[v.nome].aReceber += val;
+  });
+
+  // Inadimplentes
+  const inad = Object.entries(pessoas).filter(([,p]) => p.aReceber > 0)
+    .sort((a,b) => b[1].aReceber - a[1].aReceber);
+  const inadEl = document.getElementById('inadimplente-list');
+  if (inad.length === 0) {
+    inadEl.innerHTML = '<div style="color:#888;font-size:13px;padding:8px 0">Nenhum pendente ð</div>';
+  } else {
+    inadEl.innerHTML = inad.map(([nome, p]) => `
+      <div class="inadimplente-item">
+        <span class="nome">${nome}</span>
+        <span class="valor">${fmt(p.aReceber)}</span>
+        <button class="btn btn-primary btn-sm" onclick="marcarPagoTudo('${esc(nome)}')">Marcar como pago</button>
+      </div>
+    `).join('');
+  }
+
+  // Tabela por pessoa
+  const tbody = document.querySelector('#tab-por-pessoa tbody');
+  const rows = Object.entries(pessoas).sort((a,b) => a[0].localeCompare(b[0]));
+  tbody.innerHTML = rows.length === 0
+    ? '<tr><td colspan="4" style="text-align:center;color:#aaa;padding:20px">Sem dados</td></tr>'
+    : rows.map(([nome, p]) => `
+      <tr>
+        <td>${nome}</td>
+        <td>${fmt(p.comprado)}</td>
+        <td style="color:#0f8a3c">${fmt(p.pago)}</td>
+        <td style="color:${p.aReceber>0?'#c00000':'#0f8a3c'}">${fmt(p.aReceber)}</td>
+      </tr>
+    `).join('');
+}
+
+function esc(s) { return String(s).replace(/'/g, "\\'"); }
+
+async function marcarPagoTudo(nome) {
+  const f = getFilter();
+  const pendentes = (state.vendas||[]).filter(v =>
+    v.nome === nome && v.status === 'nao_pago' && vendaMatchFilter(v, f)
+  );
+  if (!pendentes.length) return;
+  const total = pendentes.reduce((s,v) => s + precoItem(v.item)*(v.qtd||1), 0);
+  if (!confirm(`Marcar ${pendentes.length} venda(s) como pagas para "${nome}"?\nTotal: ${fmt(total)}`)) return;
+  pendentes.forEach(v => v.status = 'pago');
+  await saveData();
+}
+
+// âââ LANÃAMENTOS âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+function renderLancamentos(f) {
+  const vendas = (state.vendas||[]).filter(v => vendaMatchFilter(v, f))
+    .slice().sort((a,b) => b.data.localeCompare(a.data));
+
+  const tbody = document.querySelector('#tab-vendas tbody');
+  if (vendas.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#aaa;padding:20px">Sem vendas no perÃ­odo</td></tr>';
+    return;
+  }
+  tbody.innerHTML = vendas.map(v => {
+    const val = precoItem(v.item) * (v.qtd||1);
+    const rowClass = v.obs ? 'class="obs-row"' : '';
+    const obsHtml = v.obs ? `<div class="obs-text">ð ${v.obs}</div>` : '';
+    return `<tr ${rowClass}>
+      <td>${fmtDate(v.data)}</td>
+      <td>${v.nome}${obsHtml}</td>
+      <td>${v.item}</td>
+      <td>${v.qtd}</td>
+      <td>${fmt(val)}</td>
+      <td><button class="badge ${v.status}" onclick="toggleStatus('${v.id}')">${v.status==='pago'?'Pago':'NÃ£o pago'}</button></td>
+      <td><button class="btn-del" onclick="delVenda('${v.id}')">â</button></td>
+    </tr>`;
+  }).join('');
+}
+
+async function addVenda() {
+  const data = document.getElementById('v-data').value;
+  const nome = document.getElementById('v-nome').value.trim();
+  const item = document.getElementById('v-item').value;
+  const qtd = parseInt(document.getElementById('v-qtd').value)||1;
+  const status = document.getElementById('v-status').value;
+  const obs = document.getElementById('v-obs').value.trim();
+
+  if (!nome) { alert('Informe o nome da pessoa.'); return; }
+  if (!item) { alert('Selecione um item.'); return; }
+  if (!data) { alert('Informe a data.'); return; }
+
+  state.vendas.push({ id: uid(), data, nome, item, qtd, status, obs });
+  document.getElementById('v-nome').value = '';
+  document.getElementById('v-obs').value = '';
+  document.getElementById('v-qtd').value = '1';
+  await saveData();
+}
+
+async function toggleStatus(id) {
+  const v = state.vendas.find(x => x.id === id);
+  if (!v) return;
+  v.status = v.status === 'pago' ? 'nao_pago' : 'pago';
+  await saveData();
+}
+
+async function delVenda(id) {
+  if (!confirm('Excluir esta venda?')) return;
+  state.vendas = state.vendas.filter(x => x.id !== id);
+  await saveData();
+}
+
+async function limparTudo() {
+  if (!confirm('â ï¸ Tem certeza que quer APAGAR TODAS as vendas? Esta aÃ§Ã£o nÃ£o pode ser desfeita.')) return;
+  if (!confirm('Confirme novamente: apagar TUDO mesmo?')) return;
+  state.vendas = [];
+  await saveData();
+}
+
+// âââ REPOSIÃÃO ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+function renderReposicao() {
+  const repos = (state.reposicoes||[]).slice().sort((a,b) => b.data.localeCompare(a.data));
+  const tbody = document.querySelector('#tab-repos tbody');
+  tbody.innerHTML = repos.length === 0
+    ? '<tr><td colspan="4" style="text-align:center;color:#aaa;padding:20px">Sem reposiÃ§Ãµes</td></tr>'
+    : repos.map(r => `<tr>
+        <td>${fmtDate(r.data)}</td>
+        <td>${r.item}</td>
+        <td>${r.qtd}</td>
+        <td><button class="btn-del" onclick="delReposicao('${r.id}')">â</button></td>
+      </tr>`).join('');
+}
+
+async function addReposicao() {
+  const data = document.getElementById('r-data').value;
+  const item = document.getElementById('r-item').value;
+  const qtd = parseInt(document.getElementById('r-qtd').value)||1;
+  if (!data || !item) { alert('Preencha todos os campos.'); return; }
+  if (!state.reposicoes) state.reposicoes = [];
+  state.reposicoes.push({ id: uid(), data, item, qtd });
+  document.getElementById('r-qtd').value = '1';
+  await saveData();
+}
+
+async function delReposicao(id) {
+  if (!confirm('Excluir esta reposiÃ§Ã£o?')) return;
+  state.reposicoes = (state.reposicoes||[]).filter(x => x.id !== id);
+  await saveData();
+}
+
+// âââ ESTOQUE ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+function renderEstoque() {
+  const itens = Object.keys(state.precos||{});
+  const tbody = document.querySelector('#tab-est tbody');
+  if (itens.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:#aaa;padding:20px">Sem itens cadastrados</td></tr>';
+    return;
+  }
+  tbody.innerHTML = itens.map(item => {
+    const reposto = (state.reposicoes||[]).filter(r=>r.item===item).reduce((s,r)=>s+(r.qtd||0),0);
+    const vendido = (state.vendas||[]).filter(v=>v.item===item).reduce((s,v)=>s+(v.qtd||0),0);
+    const atual = reposto - vendido;
+    return `<tr>
+      <td>${item}</td>
+      <td>${reposto}</td>
+      <td>${vendido}</td>
+      <td class="${atual<0?'neg':''}">${atual}</td>
+    </tr>`;
+  }).join('');
+}
+
+// âââ PREÃOS âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+function renderPrecos() {
+  const tbody = document.querySelector('#tab-prec tbody');
+  const itens = Object.entries(state.precos||{});
+  tbody.innerHTML = itens.length === 0
+    ? '<tr><td colspan="3" style="text-align:center;color:#aaa;padding:20px">Sem itens</td></tr>'
+    : itens.map(([nome, preco]) => `<tr>
+        <td>${nome}</td>
+        <td><input type="number" value="${preco}" min="0" step="0.5"
+          style="width:100px;padding:5px;border:1px solid #ccd;border-radius:6px"
+          onchange="updatePreco('${esc(nome)}', this.value)"></td>
+        <td><button class="btn-del" onclick="delPreco('${esc(nome)}')">â</button></td>
+      </tr>`).join('');
+}
+
+async function updatePreco(nome, val) {
+  state.precos[nome] = parseFloat(val)||0;
+  await saveData();
+}
+
+async function delPreco(nome) {
+  if (!confirm(`Excluir o item "${nome}"?`)) return;
+  delete state.precos[nome];
+  await saveData();
+}
+
+async function addPreco() {
+  const nome = document.getElementById('p-nome').value.trim();
+  const preco = parseFloat(document.getElementById('p-preco').value)||0;
+  if (!nome) { alert('Informe o nome do item.'); return; }
+  if (state.precos[nome] !== undefined) { alert('Item jÃ¡ existe.'); return; }
+  state.precos[nome] = preco;
+  document.getElementById('p-nome').value = '';
+  document.getElementById('p-preco').value = '10';
+  await saveData();
+}
+
+// âââ BANCO ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+function renderBanco() {
+  const banco = state.banco || { saldoInicial: 0, movimentos: [] };
+  document.getElementById('b-saldo-inicial').value = banco.saldoInicial || 0;
+
+  // Construir lista combinada
+  const manuais = (banco.movimentos||[]).map(m => ({...m, _manual: true}));
+  const deVendas = (state.vendas||[]).filter(v => v.status === 'pago').map(v => ({
+    id: 'v-'+v.id,
+    data: v.data,
+    tipo: 'entrada',
+    descricao: `Venda - ${v.nome} (${v.item})`,
+    valor: precoItem(v.item) * (v.qtd||1),
+    _manual: false
+  }));
+
+  const todos = [...manuais, ...deVendas].sort((a,b) => b.data.localeCompare(a.data));
+
+  // KPIs (vida toda, sem filtro de mÃªs)
+  let entradas = banco.saldoInicial || 0;
+  let entradasManuais = 0, saidasManuais = 0;
+  manuais.forEach(m => {
+    if (m.tipo === 'entrada') entradasManuais += m.valor;
+    else saidasManuais += m.valor;
+  });
+  const vendasPagas = deVendas.reduce((s,v) => s+v.valor, 0);
+  const saldo = (banco.saldoInicial||0) + entradasManuais + vendasPagas - saidasManuais;
+  const totalEnt = entradasManuais + vendasPagas;
+
+  document.getElementById('kpi-banco').innerHTML = `
+    <div class="kpi blue"><div class="label">Saldo atual</div><div class="value">${fmt(saldo)}</div></div>
+    <div class="kpi green"><div class="label">Total entradas</div><div class="value">${fmt(totalEnt)}</div></div>
+    <div class="kpi red"><div class="label">Total saÃ­das</div><div class="value">${fmt(saidasManuais)}</div></div>
+  `;
+
+  const tbody = document.querySelector('#tab-banco-mov tbody');
+  tbody.innerHTML = todos.length === 0
+    ? '<tr><td colspan="5" style="text-align:center;color:#aaa;padding:20px">Sem movimentaÃ§Ãµes</td></tr>'
+    : todos.map(m => {
+        const cor = m.tipo === 'entrada' ? '#0f8a3c' : '#c00000';
+        const sinal = m.tipo === 'entrada' ? '+' : '-';
+        const delBtn = m._manual
+          ? `<button class="btn-del" onclick="delMovimento('${m.id}')">â</button>`
+          : `<span style="color:#aaa;font-size:11px">venda</span>`;
+        return `<tr>
+          <td>${fmtDate(m.data)}</td>
+          <td style="color:${cor};font-weight:bold">${m.tipo==='entrada'?'Entrada':'SaÃ­da'}</td>
+          <td>${m.descricao}</td>
+          <td style="color:${cor};font-weight:bold">${sinal} ${fmt(m.valor)}</td>
+          <td>${delBtn}</td>
+        </tr>`;
+      }).join('');
+}
+
+async function saveSaldoInicial() {
+  const val = parseFloat(document.getElementById('b-saldo-inicial').value)||0;
+  if (!state.banco) state.banco = { saldoInicial: 0, movimentos: [] };
+  state.banco.saldoInicial = val;
+  await saveData();
+}
+
+async function addMovimento() {
+  const data = document.getElementById('b-data').value;
+  const tipo = document.getElementById('b-tipo').value;
+  const descricao = document.getElementById('b-desc').value.trim();
+  const valor = parseFloat(document.getElementById('b-valor').value)||0;
+  if (!data || !descricao) { alert('Preencha todos os campos.'); return; }
+  if (!state.banco) state.banco = { saldoInicial: 0, movimentos: [] };
+  if (!state.banco.movimentos) state.banco.movimentos = [];
+  state.banco.movimentos.push({ id: uid(), data, tipo, descricao, valor });
+  document.getElementById('b-desc').value = '';
+  document.getElementById('b-valor').value = '0';
+  await saveData();
+}
+
+async function delMovimento(id) {
+  if (!confirm('Excluir esta movimentaÃ§Ã£o?')) return;
+  state.banco.movimentos = (state.banco.movimentos||[]).filter(x => x.id !== id);
+  await saveData();
+}
+
+// âââ DROPDOWNS ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+function buildItemDropdowns() {
+  const itens = Object.keys(state.precos||{});
+  ['v-item','r-item'].forEach(id => {
+    const sel = document.getElementById(id);
+    const cur = sel.value;
+    sel.innerHTML = itens.map(i => `<option value="${i}"${i===cur?' selected':''}>${i}</option>`).join('');
+  });
+}
+
+// âââ INIT âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+autoLogin();
+</script>
+</body>
+</html>

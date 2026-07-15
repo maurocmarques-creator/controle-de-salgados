@@ -118,7 +118,7 @@ tr.obs-row td{background:#fffde7}
 <!-- LOGIN -->
 <div id="login-screen">
   <div class="card">
-    <h1>ð¥ Controle de Salgados</h1>
+    <h1>🥐 Controle de Salgados</h1>
     <p>Digite a senha para acessar</p>
     <input type="password" id="login-input" placeholder="Senha" onkeydown="if(event.key==='Enter')doLogin()">
     <button onclick="doLogin()">Entrar</button>
@@ -129,24 +129,24 @@ tr.obs-row td{background:#fffde7}
 <!-- APP -->
 <div id="app">
   <div class="top-bar">
-    <span class="site-name">ð¥ Controle de Salgados</span>
+    <span class="site-name">🥐 Controle de Salgados</span>
     <button class="btn-logout" onclick="doLogout()">Sair</button>
   </div>
 
   <!-- TABS -->
   <div class="tabs">
     <button class="active" onclick="switchTab('resumo',this)">Resumo</button>
-    <button onclick="switchTab('lancamentos',this)">LanÃ§amentos</button>
-    <button onclick="switchTab('reposicao',this)">ReposiÃ§Ã£o</button>
+    <button onclick="switchTab('lancamentos',this)">Lançamentos</button>
+    <button onclick="switchTab('reposicao',this)">Reposição</button>
     <button onclick="switchTab('estoque',this)">Estoque</button>
-    <button onclick="switchTab('precos',this)">PreÃ§os</button>
+    <button onclick="switchTab('precos',this)">Preços</button>
     <button onclick="switchTab('banco',this)">Banco</button>
   </div>
 
   <!-- GLOBAL FILTERS -->
   <div class="filters">
     <div style="display:flex;align-items:center;gap:6px">
-      <label for="f-mes">MÃªs:</label>
+      <label for="f-mes">Mês:</label>
       <select id="f-mes" onchange="render()"></select>
     </div>
     <div style="display:flex;align-items:center;gap:6px">
@@ -167,7 +167,7 @@ tr.obs-row td{background:#fffde7}
     </table></div>
   </div>
 
-  <!-- TAB: LANÃAMENTOS -->
+  <!-- TAB: LANÇAMENTOS -->
   <div id="tab-lancamentos" class="tab-content">
     <div class="form-card">
       <h3>Nova venda</h3>
@@ -177,9 +177,9 @@ tr.obs-row td{background:#fffde7}
         <div class="form-group"><label>Item</label><select id="v-item"></select></div>
         <div class="form-group"><label>Qtd</label><input type="number" id="v-qtd" value="1" min="1"></div>
         <div class="form-group"><label>Status</label>
-          <select id="v-status"><option value="pago">Pago</option><option value="nao_pago">NÃ£o pago</option></select>
+          <select id="v-status"><option value="pago">Pago</option><option value="nao_pago">Não pago</option></select>
         </div>
-        <div class="form-group"><label>Obs (opcional)</label><input type="text" id="v-obs" placeholder="ObservaÃ§Ã£o"></div>
+        <div class="form-group"><label>Obs (opcional)</label><input type="text" id="v-obs" placeholder="Observação"></div>
         <div class="form-group" style="justify-content:flex-end">
           <button class="btn btn-primary" onclick="addVenda()">Adicionar</button>
         </div>
@@ -187,7 +187,7 @@ tr.obs-row td{background:#fffde7}
     </div>
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
       <div class="section-title" style="margin:0">Vendas</div>
-      <button class="btn btn-danger btn-sm" onclick="limparTudo()">ð Limpar tudo</button>
+      <button class="btn btn-danger btn-sm" onclick="limparTudo()">🗑 Limpar tudo</button>
     </div>
     <div class="table-wrap"><table id="tab-vendas">
       <thead><tr><th>Data</th><th>Nome</th><th>Item</th><th>Qtd</th><th>Valor</th><th>Status</th><th></th></tr></thead>
@@ -195,10 +195,10 @@ tr.obs-row td{background:#fffde7}
     </table></div>
   </div>
 
-  <!-- TAB: REPOSIÃÃO -->
+  <!-- TAB: REPOSIÇÃO -->
   <div id="tab-reposicao" class="tab-content">
     <div class="form-card">
-      <h3>Registrar reposiÃ§Ã£o</h3>
+      <h3>Registrar reposição</h3>
       <div class="form-row">
         <div class="form-group"><label>Data</label><input type="date" id="r-data"></div>
         <div class="form-group"><label>Item</label><select id="r-item"></select></div>
@@ -222,20 +222,20 @@ tr.obs-row td{background:#fffde7}
     </table></div>
   </div>
 
-  <!-- TAB: PREÃOS -->
+  <!-- TAB: PREÇOS -->
   <div id="tab-precos" class="tab-content">
     <div class="form-card">
       <h3>Novo item</h3>
       <div class="form-row">
         <div class="form-group"><label>Nome do item</label><input type="text" id="p-nome" placeholder="Ex: Pastel"></div>
-        <div class="form-group"><label>PreÃ§o (R$)</label><input type="number" id="p-preco" value="10" min="0" step="0.5"></div>
+        <div class="form-group"><label>Preço (R$)</label><input type="number" id="p-preco" value="10" min="0" step="0.5"></div>
         <div class="form-group" style="justify-content:flex-end">
           <button class="btn btn-primary" onclick="addPreco()">Adicionar</button>
         </div>
       </div>
     </div>
     <div class="table-wrap"><table id="tab-prec">
-      <thead><tr><th>Item</th><th>PreÃ§o (R$)</th><th></th></tr></thead>
+      <thead><tr><th>Item</th><th>Preço (R$)</th><th></th></tr></thead>
       <tbody></tbody>
     </table></div>
   </div>
@@ -253,22 +253,22 @@ tr.obs-row td{background:#fffde7}
       </div>
     </div>
     <div class="form-card">
-      <h3>Nova movimentaÃ§Ã£o manual</h3>
+      <h3>Nova movimentação manual</h3>
       <div class="form-row">
         <div class="form-group"><label>Data</label><input type="date" id="b-data"></div>
         <div class="form-group"><label>Tipo</label>
-          <select id="b-tipo"><option value="entrada">Entrada</option><option value="saida">SaÃ­da</option></select>
+          <select id="b-tipo"><option value="entrada">Entrada</option><option value="saida">Saída</option></select>
         </div>
-        <div class="form-group"><label>DescriÃ§Ã£o</label><input type="text" id="b-desc" placeholder="Ex: Compra de ingredientes"></div>
+        <div class="form-group"><label>Descrição</label><input type="text" id="b-desc" placeholder="Ex: Compra de ingredientes"></div>
         <div class="form-group"><label>Valor (R$)</label><input type="number" id="b-valor" min="0" step="0.01" value="0"></div>
         <div class="form-group" style="justify-content:flex-end">
           <button class="btn btn-primary" onclick="addMovimento()">Adicionar</button>
         </div>
       </div>
     </div>
-    <div class="section-title">MovimentaÃ§Ãµes</div>
+    <div class="section-title">Movimentações</div>
     <div class="table-wrap"><table id="tab-banco-mov">
-      <thead><tr><th>Data</th><th>Tipo</th><th>DescriÃ§Ã£o</th><th>Valor</th><th></th></tr></thead>
+      <thead><tr><th>Data</th><th>Tipo</th><th>Descrição</th><th>Valor</th><th></th></tr></thead>
       <tbody></tbody>
     </table></div>
   </div>
@@ -276,7 +276,7 @@ tr.obs-row td{background:#fffde7}
 </div><!-- /app -->
 
 <script>
-// âââ STATE âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ─── STATE ───────────────────────────────────────────────────────────────────
 let state = null;
 let pwd = '';
 
@@ -297,7 +297,7 @@ function fmtDate(d) {
   return `${dd}/${m}/${y}`;
 }
 
-// âââ AUTH âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ─── AUTH ─────────────────────────────────────────────────────────────────────
 async function doLogin() {
   const input = document.getElementById('login-input');
   const err = document.getElementById('login-error');
@@ -315,7 +315,7 @@ async function doLogin() {
       pwd = '';
     }
   } catch(e) {
-    err.textContent = 'Erro de conexÃ£o. Tente novamente.';
+    err.textContent = 'Erro de conexão. Tente novamente.';
   }
   showLoading(false);
 }
@@ -350,7 +350,7 @@ function showApp() {
   render();
 }
 
-// âââ API ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ─── API ──────────────────────────────────────────────────────────────────────
 async function fetchData() {
   const res = await fetch(API, { headers: { 'x-site-password': pwd } });
   if (res.status === 401) return false;
@@ -375,7 +375,7 @@ async function saveData() {
   render();
 }
 
-// âââ UI HELPERS âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ─── UI HELPERS ───────────────────────────────────────────────────────────────
 function showLoading(v) {
   document.getElementById('loading').style.display = v ? 'flex' : 'none';
 }
@@ -395,7 +395,7 @@ function setDefaultDates() {
   });
 }
 
-// âââ FILTERS ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ─── FILTERS ──────────────────────────────────────────────────────────────────
 function getFilter() {
   return {
     mes: document.getElementById('f-mes').value,
@@ -428,7 +428,7 @@ function buildMesOptions() {
   if (current) sel.value = current;
 }
 
-// âââ RENDER âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ─── RENDER ───────────────────────────────────────────────────────────────────
 function render() {
   if (!state) return;
   buildMesOptions();
@@ -446,7 +446,7 @@ function precoItem(nome) {
   return (state.precos && state.precos[nome]) || 0;
 }
 
-// âââ RESUMO âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ─── RESUMO ───────────────────────────────────────────────────────────────────
 function renderResumo(f) {
   const vendas = (state.vendas||[]).filter(v => vendaMatchFilter(v, f));
   let recebido = 0, aReceber = 0;
@@ -458,7 +458,7 @@ function renderResumo(f) {
   const total = recebido + aReceber;
 
   document.getElementById('kpi-resumo').innerHTML = `
-    <div class="kpi green"><div class="label">JÃ¡ recebido</div><div class="value">${fmt(recebido)}</div></div>
+    <div class="kpi green"><div class="label">Já recebido</div><div class="value">${fmt(recebido)}</div></div>
     <div class="kpi red"><div class="label">A receber</div><div class="value">${fmt(aReceber)}</div></div>
     <div class="kpi blue"><div class="label">Total de vendas</div><div class="value">${fmt(total)}</div></div>
   `;
@@ -478,7 +478,7 @@ function renderResumo(f) {
     .sort((a,b) => b[1].aReceber - a[1].aReceber);
   const inadEl = document.getElementById('inadimplente-list');
   if (inad.length === 0) {
-    inadEl.innerHTML = '<div style="color:#888;font-size:13px;padding:8px 0">Nenhum pendente ð</div>';
+    inadEl.innerHTML = '<div style="color:#888;font-size:13px;padding:8px 0">Nenhum pendente 🎉</div>';
   } else {
     inadEl.innerHTML = inad.map(([nome, p]) => `
       <div class="inadimplente-item">
@@ -518,28 +518,28 @@ async function marcarPagoTudo(nome) {
   await saveData();
 }
 
-// âââ LANÃAMENTOS âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ─── LANÇAMENTOS ─────────────────────────────────────────────────────────────
 function renderLancamentos(f) {
   const vendas = (state.vendas||[]).filter(v => vendaMatchFilter(v, f))
     .slice().sort((a,b) => b.data.localeCompare(a.data));
 
   const tbody = document.querySelector('#tab-vendas tbody');
   if (vendas.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#aaa;padding:20px">Sem vendas no perÃ­odo</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#aaa;padding:20px">Sem vendas no período</td></tr>';
     return;
   }
   tbody.innerHTML = vendas.map(v => {
     const val = precoItem(v.item) * (v.qtd||1);
     const rowClass = v.obs ? 'class="obs-row"' : '';
-    const obsHtml = v.obs ? `<div class="obs-text">ð ${v.obs}</div>` : '';
+    const obsHtml = v.obs ? `<div class="obs-text">📝 ${v.obs}</div>` : '';
     return `<tr ${rowClass}>
       <td>${fmtDate(v.data)}</td>
       <td>${v.nome}${obsHtml}</td>
       <td>${v.item}</td>
       <td>${v.qtd}</td>
       <td>${fmt(val)}</td>
-      <td><button class="badge ${v.status}" onclick="toggleStatus('${v.id}')">${v.status==='pago'?'Pago':'NÃ£o pago'}</button></td>
-      <td><button class="btn-del" onclick="delVenda('${v.id}')">â</button></td>
+      <td><button class="badge ${v.status}" onclick="toggleStatus('${v.id}')">${v.status==='pago'?'Pago':'Não pago'}</button></td>
+      <td><button class="btn-del" onclick="delVenda('${v.id}')">✕</button></td>
     </tr>`;
   }).join('');
 }
@@ -577,23 +577,23 @@ async function delVenda(id) {
 }
 
 async function limparTudo() {
-  if (!confirm('â ï¸ Tem certeza que quer APAGAR TODAS as vendas? Esta aÃ§Ã£o nÃ£o pode ser desfeita.')) return;
+  if (!confirm('⚠️ Tem certeza que quer APAGAR TODAS as vendas? Esta ação não pode ser desfeita.')) return;
   if (!confirm('Confirme novamente: apagar TUDO mesmo?')) return;
   state.vendas = [];
   await saveData();
 }
 
-// âââ REPOSIÃÃO ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ─── REPOSIÇÃO ────────────────────────────────────────────────────────────────
 function renderReposicao() {
   const repos = (state.reposicoes||[]).slice().sort((a,b) => b.data.localeCompare(a.data));
   const tbody = document.querySelector('#tab-repos tbody');
   tbody.innerHTML = repos.length === 0
-    ? '<tr><td colspan="4" style="text-align:center;color:#aaa;padding:20px">Sem reposiÃ§Ãµes</td></tr>'
+    ? '<tr><td colspan="4" style="text-align:center;color:#aaa;padding:20px">Sem reposições</td></tr>'
     : repos.map(r => `<tr>
         <td>${fmtDate(r.data)}</td>
         <td>${r.item}</td>
         <td>${r.qtd}</td>
-        <td><button class="btn-del" onclick="delReposicao('${r.id}')">â</button></td>
+        <td><button class="btn-del" onclick="delReposicao('${r.id}')">✕</button></td>
       </tr>`).join('');
 }
 
@@ -609,12 +609,12 @@ async function addReposicao() {
 }
 
 async function delReposicao(id) {
-  if (!confirm('Excluir esta reposiÃ§Ã£o?')) return;
+  if (!confirm('Excluir esta reposição?')) return;
   state.reposicoes = (state.reposicoes||[]).filter(x => x.id !== id);
   await saveData();
 }
 
-// âââ ESTOQUE ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ─── ESTOQUE ──────────────────────────────────────────────────────────────────
 function renderEstoque() {
   const itens = Object.keys(state.precos||{});
   const tbody = document.querySelector('#tab-est tbody');
@@ -635,7 +635,7 @@ function renderEstoque() {
   }).join('');
 }
 
-// âââ PREÃOS âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ─── PREÇOS ───────────────────────────────────────────────────────────────────
 function renderPrecos() {
   const tbody = document.querySelector('#tab-prec tbody');
   const itens = Object.entries(state.precos||{});
@@ -646,7 +646,7 @@ function renderPrecos() {
         <td><input type="number" value="${preco}" min="0" step="0.5"
           style="width:100px;padding:5px;border:1px solid #ccd;border-radius:6px"
           onchange="updatePreco('${esc(nome)}', this.value)"></td>
-        <td><button class="btn-del" onclick="delPreco('${esc(nome)}')">â</button></td>
+        <td><button class="btn-del" onclick="delPreco('${esc(nome)}')">✕</button></td>
       </tr>`).join('');
 }
 
@@ -665,14 +665,14 @@ async function addPreco() {
   const nome = document.getElementById('p-nome').value.trim();
   const preco = parseFloat(document.getElementById('p-preco').value)||0;
   if (!nome) { alert('Informe o nome do item.'); return; }
-  if (state.precos[nome] !== undefined) { alert('Item jÃ¡ existe.'); return; }
+  if (state.precos[nome] !== undefined) { alert('Item já existe.'); return; }
   state.precos[nome] = preco;
   document.getElementById('p-nome').value = '';
   document.getElementById('p-preco').value = '10';
   await saveData();
 }
 
-// âââ BANCO ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ─── BANCO ────────────────────────────────────────────────────────────────────
 function renderBanco() {
   const banco = state.banco || { saldoInicial: 0, movimentos: [] };
   document.getElementById('b-saldo-inicial').value = banco.saldoInicial || 0;
@@ -690,7 +690,7 @@ function renderBanco() {
 
   const todos = [...manuais, ...deVendas].sort((a,b) => b.data.localeCompare(a.data));
 
-  // KPIs (vida toda, sem filtro de mÃªs)
+  // KPIs (vida toda, sem filtro de mês)
   let entradas = banco.saldoInicial || 0;
   let entradasManuais = 0, saidasManuais = 0;
   manuais.forEach(m => {
@@ -704,21 +704,21 @@ function renderBanco() {
   document.getElementById('kpi-banco').innerHTML = `
     <div class="kpi blue"><div class="label">Saldo atual</div><div class="value">${fmt(saldo)}</div></div>
     <div class="kpi green"><div class="label">Total entradas</div><div class="value">${fmt(totalEnt)}</div></div>
-    <div class="kpi red"><div class="label">Total saÃ­das</div><div class="value">${fmt(saidasManuais)}</div></div>
+    <div class="kpi red"><div class="label">Total saídas</div><div class="value">${fmt(saidasManuais)}</div></div>
   `;
 
   const tbody = document.querySelector('#tab-banco-mov tbody');
   tbody.innerHTML = todos.length === 0
-    ? '<tr><td colspan="5" style="text-align:center;color:#aaa;padding:20px">Sem movimentaÃ§Ãµes</td></tr>'
+    ? '<tr><td colspan="5" style="text-align:center;color:#aaa;padding:20px">Sem movimentações</td></tr>'
     : todos.map(m => {
         const cor = m.tipo === 'entrada' ? '#0f8a3c' : '#c00000';
         const sinal = m.tipo === 'entrada' ? '+' : '-';
         const delBtn = m._manual
-          ? `<button class="btn-del" onclick="delMovimento('${m.id}')">â</button>`
+          ? `<button class="btn-del" onclick="delMovimento('${m.id}')">✕</button>`
           : `<span style="color:#aaa;font-size:11px">venda</span>`;
         return `<tr>
           <td>${fmtDate(m.data)}</td>
-          <td style="color:${cor};font-weight:bold">${m.tipo==='entrada'?'Entrada':'SaÃ­da'}</td>
+          <td style="color:${cor};font-weight:bold">${m.tipo==='entrada'?'Entrada':'Saída'}</td>
           <td>${m.descricao}</td>
           <td style="color:${cor};font-weight:bold">${sinal} ${fmt(m.valor)}</td>
           <td>${delBtn}</td>
@@ -748,12 +748,12 @@ async function addMovimento() {
 }
 
 async function delMovimento(id) {
-  if (!confirm('Excluir esta movimentaÃ§Ã£o?')) return;
+  if (!confirm('Excluir esta movimentação?')) return;
   state.banco.movimentos = (state.banco.movimentos||[]).filter(x => x.id !== id);
   await saveData();
 }
 
-// âââ DROPDOWNS ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ─── DROPDOWNS ────────────────────────────────────────────────────────────────
 function buildItemDropdowns() {
   const itens = Object.keys(state.precos||{});
   ['v-item','r-item'].forEach(id => {
@@ -763,7 +763,7 @@ function buildItemDropdowns() {
   });
 }
 
-// âââ INIT âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ─── INIT ─────────────────────────────────────────────────────────────────────
 autoLogin();
 </script>
 </body>

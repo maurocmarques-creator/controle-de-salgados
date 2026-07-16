@@ -63,6 +63,7 @@ a{color:#4472C4}
 .form-group label{font-size:12px;color:#555;font-weight:600}
 .form-group input,.form-group select{padding:7px 10px;border:1px solid #ccd;border-radius:6px;font-size:13px;outline:none}
 .form-group input:focus,.form-group select:focus{border-color:#4472C4}
+.form-card.editing{border:2px solid #e67e22;background:#fffbf5}
 
 /* BUTTONS */
 .btn{padding:7px 16px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:600;transition:background .15s}
@@ -72,6 +73,8 @@ a{color:#4472C4}
 .btn-danger:hover{background:#a93226}
 .btn-success{background:#1a7a3e;color:#fff}
 .btn-success:hover{background:#155f31}
+.btn-warning{background:#e67e22;color:#fff}
+.btn-warning:hover{background:#ca6f1e}
 .btn-sm{padding:4px 10px;font-size:12px}
 .btn-outline{background:none;border:1px solid #4472C4;color:#4472C4}
 .btn-outline:hover{background:#4472C4;color:#fff}
@@ -88,6 +91,7 @@ tbody td{padding:9px 12px;vertical-align:middle}
 .badge{display:inline-block;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:600}
 .badge-pago{background:#d4edda;color:#1a7a3e}
 .badge-nao-pago{background:#fde8e8;color:#c0392b}
+.badge-brinde{background:#e8d5f5;color:#6f42c1}
 
 /* SECTION TITLE */
 .section-title{font-size:13px;font-weight:700;color:#444;text-transform:uppercase;letter-spacing:.5px;margin:16px 0 8px;padding-bottom:4px;border-bottom:2px solid #e0e4ef}
@@ -101,6 +105,9 @@ tbody td{padding:9px 12px;vertical-align:middle}
 .cliente-detail-inner{padding:12px 16px;border-top:1px solid #e0e4ef}
 .devedor-tag{display:inline-block;padding:2px 8px;background:#fde8e8;color:#c0392b;border-radius:12px;font-size:11px;font-weight:700}
 .credor-tag{display:inline-block;padding:2px 8px;background:#d4edda;color:#1a7a3e;border-radius:12px;font-size:11px;font-weight:700}
+
+/* ESTOQUE ALERT */
+.sem-estoque{color:#c0392b;font-size:11px;font-weight:700}
 
 /* LOADING */
 #loading{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(255,255,255,.85);display:flex;align-items:center;justify-content:center;z-index:999;font-size:16px;color:#4472C4}
@@ -184,12 +191,20 @@ tbody td{padding:9px 12px;vertical-align:middle}
       <div class="form-row">
         <div class="form-group"><label>Data</label><input type="date" id="v-data"></div>
         <div class="form-group"><label>Nome</label><input type="text" id="v-nome" placeholder="Nome da pessoa"></div>
-        <div class="form-group"><label>Item</label><select id="v-item" onchange="updateVPrice()"></select></div>
+        <div class="form-group">
+          <label>Item</label>
+          <select id="v-item" onchange="updateVPrice()"></select>
+          <span id="v-saldo-aviso" style="font-size:11px;color:#888;margin-top:2px"></span>
+        </div>
         <div class="form-group"><label>Qtd</label><input type="number" id="v-qtd" value="1" min="1" oninput="updateVTotal()"></div>
         <div class="form-group"><label>Preço unit (R$)</label><input type="number" id="v-preco" step="0.01" min="0" oninput="updateVTotal()"></div>
         <div class="form-group"><label>Total (R$)</label><input type="text" id="v-total" readonly style="background:#f4f6fb;font-weight:bold;color:#4472C4"></div>
         <div class="form-group"><label>Status</label>
-          <select id="v-status"><option value="pago">Pago</option><option value="nao_pago">Não pago</option></select>
+          <select id="v-status" onchange="onStatusChange()">
+            <option value="pago">Pago</option>
+            <option value="nao_pago">Não pago</option>
+            <option value="brinde">Brinde</option>
+          </select>
         </div>
         <div class="form-group"><label>Obs (opcional)</label><input type="text" id="v-obs" placeholder="Observação"></div>
         <div class="form-group" style="justify-content:flex-end">
@@ -226,8 +241,8 @@ tbody td{padding:9px 12px;vertical-align:middle}
 
   <!-- TAB: REPOSIÇÃO -->
   <div id="tab-reposicao" class="tab-content">
-    <div class="form-card">
-      <h3>Registrar reposição de estoque</h3>
+    <div class="form-card" id="repo-form-card">
+      <h3 id="repo-form-title">Registrar reposição de estoque</h3>
       <div class="form-row">
         <div class="form-group"><label>Data</label><input type="date" id="r-data"></div>
         <div class="form-group" style="min-width:140px"><label>Nr Nota Fiscal</label><input type="text" id="r-nf" placeholder="Ex: NF-001"></div>
@@ -235,8 +250,9 @@ tbody td{padding:9px 12px;vertical-align:middle}
         <div class="form-group"><label>Qtd</label><input type="number" id="r-qtd" value="1" min="1"></div>
         <div class="form-group"><label>Preço compra unit (R$)</label><input type="number" id="r-pc" step="0.01" min="0" placeholder="0.00"></div>
         <div class="form-group"><label>Preço venda unit (R$)</label><input type="number" id="r-pv" step="0.01" min="0" placeholder="0.00"></div>
-        <div class="form-group" style="justify-content:flex-end">
-          <button class="btn btn-primary" onclick="addReposicao()">Adicionar</button>
+        <div class="form-group" style="justify-content:flex-end;flex-direction:row;gap:8px;align-items:flex-end">
+          <button class="btn btn-primary" id="repo-btn-save" onclick="addReposicao()">Adicionar</button>
+          <button class="btn btn-outline" id="repo-btn-cancel" style="display:none" onclick="cancelEditRepo()">Cancelar</button>
         </div>
       </div>
     </div>
@@ -271,7 +287,7 @@ tbody td{padding:9px 12px;vertical-align:middle}
     </div>
     <div class="section-title">Tabela de preços</div>
     <div class="table-wrap"><table id="tab-precos-table">
-      <thead><tr><th>Item</th><th>Preço (R$)</th><th></th></tr></thead>
+      <thead><tr><th>Item</th><th>Estoque</th><th>Preço (R$)</th><th></th></tr></thead>
       <tbody></tbody>
     </table></div>
   </div>
@@ -310,7 +326,7 @@ tbody td{padding:9px 12px;vertical-align:middle}
 
 <!-- MODAL DETALHE CLIENTE -->
 <div class="modal-overlay" id="modal-cliente">
-  <div class="modal">
+  <div class="modal" style="max-width:600px">
     <h3 id="modal-cliente-nome">Cliente</h3>
     <div id="modal-cliente-content"></div>
     <div class="modal-footer">
@@ -320,7 +336,7 @@ tbody td{padding:9px 12px;vertical-align:middle}
 </div>
 
 <script>
-// ─── CONFIG ──────────────────────────────────────────────────────────────────
+// ─── CONFIG ─────────────────────────────────────────────────────────────────
 const API = '/api/data';
 const PWD_KEY = 'salgados_pwd';
 
@@ -332,6 +348,7 @@ let state = {
   banco: { saldoInicial: 138, movimentos: [] }
 };
 let pwd = '';
+let editingRepoId = null; // ID da reposição sendo editada
 
 // ─── AUTH ─────────────────────────────────────────────────────────────────────
 function doLogin() {
@@ -406,6 +423,21 @@ const fmtDate = d => d ? d.split('-').reverse().join('/') : '';
 const today = () => new Date().toISOString().split('T')[0];
 const uid = () => Date.now().toString(36) + Math.random().toString(36).substr(2,5);
 
+// Preço de uma venda (brinde = 0, independente do preço do item)
+const getVendaPreco = v => v.status === 'brinde' ? 0 : (v.preco || state.precos[v.item] || 0);
+const getVendaVal = v => getVendaPreco(v) * (v.qtd || 1);
+
+// Estoque atual por item (compras - todas as saídas incluindo brindes)
+function getEstoqueAtual(item) {
+  const comprado = state.reposicoes
+    .filter(r => r.item === item)
+    .reduce((s, r) => s + (r.qtd || 0), 0);
+  const saidas = state.vendas
+    .filter(v => v.item === item)
+    .reduce((s, v) => s + (v.qtd || 0), 0);
+  return comprado - saidas;
+}
+
 function setTodayDates() {
   ['v-data','r-data','b-data'].forEach(id => {
     const el = document.getElementById(id);
@@ -448,23 +480,63 @@ function getFilteredVendas() {
 
 function initSelects() {
   const items = Object.keys(state.precos);
-  ['v-item','r-item'].forEach(id => {
-    const sel = document.getElementById(id);
-    if (!sel) return;
-    const prev = sel.value;
-    sel.innerHTML = items.map(i => `<option value="${i}" ${i===prev?'selected':''}>${i}</option>`).join('');
-  });
+
+  // v-item: mostra saldo em estoque
+  const vSel = document.getElementById('v-item');
+  if (vSel) {
+    const prev = vSel.value;
+    vSel.innerHTML = items.map(i => {
+      const saldo = getEstoqueAtual(i);
+      const cor = saldo <= 0 ? ' (SEM ESTOQUE)' : ` (${saldo} em estoque)`;
+      return `<option value="${i}" ${i===prev?'selected':''}>${i}${cor}</option>`;
+    }).join('');
+    updateVSaldoAviso();
+  }
+
+  // r-item: sem info de estoque
+  const rSel = document.getElementById('r-item');
+  if (rSel) {
+    const prev = rSel.value;
+    rSel.innerHTML = items.map(i => `<option value="${i}" ${i===prev?'selected':''}>${i}</option>`).join('');
+  }
+
   updateVPrice();
   updateRPV();
 }
 
+function updateVSaldoAviso() {
+  const item = document.getElementById('v-item')?.value?.split(' (')[0] || document.getElementById('v-item')?.value;
+  // Pega o item real (sem o sufixo de estoque)
+  const itemReal = Object.keys(state.precos).find(i => document.getElementById('v-item')?.value?.startsWith(i)) || '';
+  const saldo = itemReal ? getEstoqueAtual(itemReal) : 0;
+  const el = document.getElementById('v-saldo-aviso');
+  if (el) {
+    if (saldo <= 0) {
+      el.textContent = '⚠️ Sem estoque!';
+      el.style.color = '#c0392b';
+    } else {
+      el.textContent = `✓ ${saldo} disponível(is)`;
+      el.style.color = '#1a7a3e';
+    }
+  }
+}
+
 function updateVPrice() {
-  const item = document.getElementById('v-item')?.value;
+  const sel = document.getElementById('v-item');
+  if (!sel) return;
+  // Pega o item real pelo valor do option (que tem o sufixo de estoque)
+  const selectedOption = sel.options[sel.selectedIndex];
+  const itemVal = selectedOption ? selectedOption.value : '';
+  // Encontra o item real (chave em state.precos)
+  const item = Object.keys(state.precos).find(i => itemVal.startsWith(i)) || itemVal;
+
   const pEl = document.getElementById('v-preco');
-  if (item && pEl && state.precos[item] !== undefined) {
+  const status = document.getElementById('v-status')?.value;
+  if (status !== 'brinde' && item && pEl && state.precos[item] !== undefined) {
     pEl.value = state.precos[item];
   }
   updateVTotal();
+  updateVSaldoAviso();
 }
 
 function updateVTotal() {
@@ -474,12 +546,37 @@ function updateVTotal() {
   if (totalEl) totalEl.value = fmt(qtd * preco);
 }
 
+function onStatusChange() {
+  const status = document.getElementById('v-status').value;
+  const precoEl = document.getElementById('v-preco');
+  if (status === 'brinde') {
+    precoEl.value = 0;
+    precoEl.readOnly = true;
+    precoEl.style.background = '#f0e8ff';
+    precoEl.style.color = '#6f42c1';
+  } else {
+    precoEl.readOnly = false;
+    precoEl.style.background = '';
+    precoEl.style.color = '';
+    updateVPrice();
+  }
+  updateVTotal();
+}
+
 function updateRPV() {
   const item = document.getElementById('r-item')?.value;
   const pvEl = document.getElementById('r-pv');
   if (item && pvEl && state.precos[item] !== undefined && !pvEl.value) {
     pvEl.value = state.precos[item];
   }
+}
+
+// Obter o item real do select de vendas
+function getVItemReal() {
+  const sel = document.getElementById('v-item');
+  if (!sel) return '';
+  const val = sel.options[sel.selectedIndex]?.value || '';
+  return Object.keys(state.precos).find(i => val.startsWith(i)) || val;
 }
 
 // ─── TAB SWITCH ──────────────────────────────────────────────────────────────
@@ -507,9 +604,9 @@ function renderResumo() {
   const vendas = getFilteredVendas();
   let recebido = 0, aReceber = 0;
   vendas.forEach(v => {
-    const val = (v.preco || state.precos[v.item] || 0) * (v.qtd || 1);
+    const val = getVendaVal(v);
     if (v.status === 'pago') recebido += val;
-    else aReceber += val;
+    else if (v.status !== 'brinde') aReceber += val;
   });
   const total = recebido + aReceber;
 
@@ -523,7 +620,7 @@ function renderResumo() {
   const devedores = {};
   state.vendas.filter(v => v.status === 'nao_pago').forEach(v => {
     if (!devedores[v.nome]) devedores[v.nome] = 0;
-    devedores[v.nome] += (v.preco || state.precos[v.item] || 0) * (v.qtd || 1);
+    devedores[v.nome] += getVendaVal(v);
   });
   const div = document.getElementById('inadimplente-list');
   const keys = Object.keys(devedores);
@@ -541,7 +638,7 @@ function renderResumo() {
   const por = {};
   state.vendas.forEach(v => {
     if (!por[v.nome]) por[v.nome] = { totalComprado:0, totalPago:0 };
-    const val = (v.preco || state.precos[v.item] || 0) * (v.qtd || 1);
+    const val = getVendaVal(v);
     por[v.nome].totalComprado += val;
     if (v.status === 'pago') por[v.nome].totalPago += val;
   });
@@ -563,19 +660,28 @@ function renderLancamentos() {
   const vendas = getFilteredVendas();
   const tbody = document.querySelector('#tab-vendas tbody');
   tbody.innerHTML = vendas.length ? [...vendas].reverse().map(v => {
-    const val = (v.preco || state.precos[v.item] || 0) * (v.qtd || 1);
+    const preco = getVendaPreco(v);
+    const val = preco * (v.qtd || 1);
+    let badgeHtml, acoesHtml;
+    if (v.status === 'pago') {
+      badgeHtml = '<span class="badge badge-pago">Pago</span>';
+      acoesHtml = '';
+    } else if (v.status === 'brinde') {
+      badgeHtml = '<span class="badge badge-brinde">🎁 Brinde</span>';
+      acoesHtml = '';
+    } else {
+      badgeHtml = '<span class="badge badge-nao-pago">Não pago</span>';
+      acoesHtml = `<button class="btn btn-success btn-sm" onclick="marcarPago('${v.id}')">✓ Pago</button> `;
+    }
     return `<tr>
       <td>${fmtDate(v.data)}</td>
       <td>${v.nome}</td>
       <td>${v.item}</td>
       <td>${v.qtd}</td>
-      <td>${fmt(v.preco || state.precos[v.item] || 0)}</td>
-      <td>${fmt(val)}</td>
-      <td><span class="badge badge-${v.status==='pago'?'pago':'nao-pago'}">${v.status==='pago'?'Pago':'Não pago'}</span></td>
-      <td>
-        ${v.status==='nao_pago'?`<button class="btn btn-success btn-sm" onclick="marcarPago('${v.id}')">✓ Pago</button> `:''}
-        <button class="btn btn-danger btn-sm" onclick="removeVenda('${v.id}')">✕</button>
-      </td>
+      <td>${v.status==='brinde'?'<span style="color:#6f42c1">—</span>':fmt(preco)}</td>
+      <td>${v.status==='brinde'?'<span style="color:#6f42c1">Brinde</span>':fmt(val)}</td>
+      <td>${badgeHtml}</td>
+      <td>${acoesHtml}<button class="btn btn-danger btn-sm" onclick="removeVenda('${v.id}')">✕</button></td>
     </tr>`;
   }).join('') : '<tr><td colspan="8" style="text-align:center;color:#999;padding:16px">Sem vendas no período</td></tr>';
 }
@@ -583,17 +689,38 @@ function renderLancamentos() {
 function addVenda() {
   const data = document.getElementById('v-data').value;
   const nome = document.getElementById('v-nome').value.trim();
-  const item = document.getElementById('v-item').value;
+  const item = getVItemReal();
   const qtd = parseInt(document.getElementById('v-qtd').value);
-  const preco = parseFloat(document.getElementById('v-preco').value);
   const status = document.getElementById('v-status').value;
   const obs = document.getElementById('v-obs').value.trim();
-  if (!data || !nome || !item || !qtd || isNaN(preco)) { alert('Preencha todos os campos obrigatórios.'); return; }
+
+  // Para brinde, preço = 0; para venda normal, pega do campo
+  const preco = status === 'brinde' ? 0 : parseFloat(document.getElementById('v-preco').value);
+
+  if (!data || !nome || !item || !qtd) { alert('Preencha todos os campos obrigatórios.'); return; }
+  if (status !== 'brinde' && isNaN(preco)) { alert('Preencha o preço.'); return; }
+
+  // ── Validação de estoque ──────────────────────────────────────────────────
+  const saldoAtual = getEstoqueAtual(item);
+  if (saldoAtual <= 0) {
+    alert(`❌ Sem estoque disponível para "${item}"!\nRegistre uma reposição antes de continuar.`);
+    return;
+  }
+  if (qtd > saldoAtual) {
+    alert(`❌ Estoque insuficiente para "${item}"!\nSaldo disponível: ${saldoAtual} unidade(s).\nVocê tentou lançar: ${qtd} unidade(s).`);
+    return;
+  }
+  // ─────────────────────────────────────────────────────────────────────────
+
   state.vendas.push({ id: uid(), data, nome, item, qtd, preco, status, obs });
   document.getElementById('v-nome').value = '';
   document.getElementById('v-qtd').value = 1;
   document.getElementById('v-obs').value = '';
+  // Reset status para pago e preço normal
+  document.getElementById('v-status').value = 'pago';
+  onStatusChange();
   buildMonthFilter();
+  initSelects();
   saveData();
   render();
 }
@@ -601,6 +728,7 @@ function addVenda() {
 function removeVenda(id) {
   if (!confirm('Remover esta venda?')) return;
   state.vendas = state.vendas.filter(v => v.id !== id);
+  initSelects();
   saveData(); render();
 }
 
@@ -612,6 +740,7 @@ function marcarPago(id) {
 function limparTudo() {
   if (!confirm('Limpar TODAS as vendas?')) return;
   state.vendas = [];
+  initSelects();
   saveData(); render();
 }
 
@@ -624,7 +753,7 @@ function renderClientes() {
   state.vendas.forEach(v => {
     if (nomeFilter && !(v.nome||'').toLowerCase().includes(nomeFilter)) return;
     if (!clientes[v.nome]) clientes[v.nome] = { nome: v.nome, vendas: [], totalComprado: 0, totalPago: 0 };
-    const val = (v.preco || state.precos[v.item] || 0) * (v.qtd || 1);
+    const val = getVendaVal(v);
     clientes[v.nome].vendas.push({ ...v, valor: val });
     clientes[v.nome].totalComprado += val;
     if (v.status === 'pago') clientes[v.nome].totalPago += val;
@@ -649,8 +778,8 @@ function renderClientes() {
 
 function abrirCliente(nome) {
   const vendas = state.vendas.filter(v => v.nome === nome);
-  const totalComprado = vendas.reduce((s,v) => s + (v.preco||state.precos[v.item]||0)*(v.qtd||1), 0);
-  const totalPago = vendas.filter(v=>v.status==='pago').reduce((s,v) => s + (v.preco||state.precos[v.item]||0)*(v.qtd||1), 0);
+  const totalComprado = vendas.reduce((s,v) => s + getVendaVal(v), 0);
+  const totalPago = vendas.filter(v=>v.status==='pago').reduce((s,v) => s + getVendaVal(v), 0);
   const dev = totalComprado - totalPago;
 
   document.getElementById('modal-cliente-nome').textContent = '👤 ' + nome;
@@ -665,15 +794,21 @@ function abrirCliente(nome) {
         <thead><tr><th>Data</th><th>Item</th><th>Qtd</th><th>Valor</th><th>Status</th><th></th></tr></thead>
         <tbody>
           ${vendas.length ? [...vendas].reverse().map(v => {
-            const val = (v.preco||state.precos[v.item]||0)*(v.qtd||1);
+            const val = getVendaVal(v);
+            let badge, acao = '';
+            if (v.status === 'pago') badge = '<span class="badge badge-pago">Pago</span>';
+            else if (v.status === 'brinde') badge = '<span class="badge badge-brinde">🎁 Brinde</span>';
+            else {
+              badge = '<span class="badge badge-nao-pago">Não pago</span>';
+              acao = `<button class="btn btn-success btn-sm" onclick="marcarPagoModal('${v.id}','${nome.replace(/'/g,"\\'")}')">✓ Pago</button>`;
+            }
             return `<tr>
               <td>${fmtDate(v.data)}</td>
               <td>${v.item}</td>
               <td>${v.qtd}</td>
-              <td>${fmt(val)}</td>
-              <td><span class="badge badge-${v.status==='pago'?'pago':'nao-pago'}">${v.status==='pago'?'Pago':'Não pago'}</span></td>
-              <td>${v.status==='nao_pago'?`<button class="btn btn-success btn-sm" onclick="marcarPagoModal('${v.id}','${nome.replace(/'/g,"\\'")}')">✓ Pago</button>`:''}
-              </td>
+              <td>${v.status==='brinde'?'<span style="color:#6f42c1">Brinde</span>':fmt(val)}</td>
+              <td>${badge}</td>
+              <td>${acao}</td>
             </tr>`;
           }).join('') : '<tr><td colspan="6" style="text-align:center;color:#999;padding:12px">Sem vendas</td></tr>'}
         </tbody>
@@ -706,7 +841,8 @@ function renderReposicao() {
     const totalCompra = (r.precoCompra||0) * (r.qtd||0);
     const margem = ((r.precoVenda||0) - (r.precoCompra||0));
     const margemCor = margem >= 0 ? '#1a7a3e' : '#c0392b';
-    return `<tr>
+    const isEditing = editingRepoId === r.id;
+    return `<tr style="${isEditing?'background:#fff8ee;':''}">
       <td>${fmtDate(r.data)}</td>
       <td><b>${r.nf||'-'}</b></td>
       <td>${r.item}</td>
@@ -715,9 +851,51 @@ function renderReposicao() {
       <td>${fmt(r.precoVenda||0)}</td>
       <td>${fmt(totalCompra)}</td>
       <td style="color:${margemCor};font-weight:700">${fmt(margem)} (${r.precoCompra?Math.round(margem/(r.precoCompra)*100)+'%':'–'})</td>
-      <td><button class="btn btn-danger btn-sm" onclick="removeRepo('${r.id}')">✕</button></td>
+      <td style="white-space:nowrap">
+        <button class="btn btn-warning btn-sm" onclick="editRepo('${r.id}')" title="Editar">✎</button>
+        <button class="btn btn-danger btn-sm" onclick="removeRepo('${r.id}')" title="Excluir">✕</button>
+      </td>
     </tr>`;
   }).join('') : '<tr><td colspan="9" style="text-align:center;color:#999;padding:16px">Nenhuma reposição registrada</td></tr>';
+}
+
+function editRepo(id) {
+  const r = state.reposicoes.find(r => r.id === id);
+  if (!r) return;
+  editingRepoId = id;
+
+  // Preenche o formulário
+  document.getElementById('r-data').value = r.data;
+  document.getElementById('r-nf').value = r.nf || '';
+  document.getElementById('r-item').value = r.item;
+  document.getElementById('r-qtd').value = r.qtd;
+  document.getElementById('r-pc').value = r.precoCompra || '';
+  document.getElementById('r-pv').value = r.precoVenda || '';
+
+  // Atualiza UI do formulário
+  document.getElementById('repo-form-title').textContent = '✏️ Editando reposição – ' + (r.nf || r.item);
+  document.getElementById('repo-btn-save').textContent = 'Salvar alteração';
+  document.getElementById('repo-btn-save').className = 'btn btn-warning';
+  document.getElementById('repo-btn-cancel').style.display = '';
+  document.getElementById('repo-form-card').classList.add('editing');
+
+  // Scroll para o formulário
+  document.getElementById('repo-form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  renderReposicao();
+}
+
+function cancelEditRepo() {
+  editingRepoId = null;
+  document.getElementById('repo-form-title').textContent = 'Registrar reposição de estoque';
+  document.getElementById('repo-btn-save').textContent = 'Adicionar';
+  document.getElementById('repo-btn-save').className = 'btn btn-primary';
+  document.getElementById('repo-btn-cancel').style.display = 'none';
+  document.getElementById('repo-form-card').classList.remove('editing');
+  document.getElementById('r-nf').value = '';
+  document.getElementById('r-qtd').value = 1;
+  document.getElementById('r-pc').value = '';
+  document.getElementById('r-pv').value = '';
+  renderReposicao();
 }
 
 function addReposicao() {
@@ -730,43 +908,56 @@ function addReposicao() {
   if (!data || !nf || !item || !qtd || isNaN(precoCompra) || isNaN(precoVenda)) {
     alert('Preencha todos os campos, incluindo NF e preços.'); return;
   }
-  state.reposicoes.push({ id: uid(), data, nf, item, qtd, precoCompra, precoVenda });
-  // Atualiza preço de venda padrão deste item
-  state.precos[item] = precoVenda;
-  document.getElementById('r-nf').value = '';
-  document.getElementById('r-qtd').value = 1;
-  document.getElementById('r-pc').value = '';
-  document.getElementById('r-pv').value = '';
+
+  if (editingRepoId) {
+    // ── EDITAR reposição existente ─────────────────────────────────────────
+    const idx = state.reposicoes.findIndex(r => r.id === editingRepoId);
+    if (idx >= 0) {
+      const idAtual = state.reposicoes[idx].id;
+      state.reposicoes[idx] = { id: idAtual, data, nf, item, qtd, precoCompra, precoVenda };
+      state.precos[item] = precoVenda;
+    }
+    cancelEditRepo();
+  } else {
+    // ── ADICIONAR nova reposição ───────────────────────────────────────────
+    state.reposicoes.push({ id: uid(), data, nf, item, qtd, precoCompra, precoVenda });
+    state.precos[item] = precoVenda;
+    document.getElementById('r-nf').value = '';
+    document.getElementById('r-qtd').value = 1;
+    document.getElementById('r-pc').value = '';
+    document.getElementById('r-pv').value = '';
+  }
+
   buildMonthFilter();
   initSelects();
   saveData(); render();
 }
 
 function removeRepo(id) {
+  if (editingRepoId === id) cancelEditRepo();
   if (!confirm('Remover este lote?')) return;
   state.reposicoes = state.reposicoes.filter(r => r.id !== id);
+  initSelects();
   saveData(); render();
 }
 
 // ─── ESTOQUE ─────────────────────────────────────────────────────────────────
 function renderEstoque() {
-  // Per-item: vendas quantity
-  const vendaQtdByItem = {};
+  // Saídas por item (vendas + brindes)
+  const saidasByItem = {};
   state.vendas.forEach(v => {
-    vendaQtdByItem[v.item] = (vendaQtdByItem[v.item]||0) + (v.qtd||1);
+    saidasByItem[v.item] = (saidasByItem[v.item]||0) + (v.qtd||1);
   });
 
-  // Per-batch: assign vendas FIFO (simplified: by item, oldest batches first)
-  // We compute remaining qtd per batch
+  // FIFO por lote
   const batchesByItem = {};
   state.reposicoes.forEach(r => {
     if (!batchesByItem[r.item]) batchesByItem[r.item] = [];
     batchesByItem[r.item].push({ ...r, qtdVendida: 0, saldo: r.qtd });
   });
 
-  // FIFO assignment per item
   Object.keys(batchesByItem).forEach(item => {
-    let toAssign = vendaQtdByItem[item] || 0;
+    let toAssign = saidasByItem[item] || 0;
     const batches = batchesByItem[item].sort((a,b) => a.data.localeCompare(b.data));
     batches.forEach(b => {
       const vendido = Math.min(toAssign, b.qtd);
@@ -776,7 +967,6 @@ function renderEstoque() {
     });
   });
 
-  // Flatten sorted by date desc
   const allBatches = Object.values(batchesByItem).flat().sort((a,b) => b.data.localeCompare(a.data));
 
   let totalCusto = 0, totalFatPotencial = 0, totalResultado = 0, totalSaldo = 0;
@@ -816,14 +1006,19 @@ function renderEstoque() {
 // ─── PREÇOS ──────────────────────────────────────────────────────────────────
 function renderPrecos() {
   const tbody = document.querySelector('#tab-precos-table tbody');
-  tbody.innerHTML = Object.entries(state.precos).map(([item, preco]) =>
-    `<tr>
+  tbody.innerHTML = Object.entries(state.precos).map(([item, preco]) => {
+    const saldo = getEstoqueAtual(item);
+    const saldoHtml = saldo > 0
+      ? `<span style="color:#1a7a3e;font-weight:600">${saldo}</span>`
+      : `<span class="sem-estoque">⚠️ 0</span>`;
+    return `<tr>
       <td>${item}</td>
+      <td>${saldoHtml}</td>
       <td><input type="number" value="${preco}" step="0.01" min="0" style="width:90px;padding:5px 8px;border:1px solid #ccd;border-radius:6px;font-size:13px"
           onchange="updatePreco('${item.replace(/'/g,"\\'")}',this.value)"></td>
       <td><button class="btn btn-danger btn-sm" onclick="removeItem('${item.replace(/'/g,"\\'")}')">✕</button></td>
-    </tr>`
-  ).join('') || '<tr><td colspan="3" style="text-align:center;color:#999;padding:16px">Nenhum item</td></tr>';
+    </tr>`;
+  }).join('') || '<tr><td colspan="4" style="text-align:center;color:#999;padding:16px">Nenhum item</td></tr>';
 }
 
 function addItem() {

@@ -17,11 +17,13 @@ module.exports = async function handler(req, res) {
   const token = process.env.BLOB_READ_WRITE_TOKEN;
   try {
     if (req.method === 'GET') {
-      const { blobs } = await list({ prefix: BLOB_NAME, token });
+      const { blobs } = await list({ prefix: 'salgados-data', token });
       if (!blobs || blobs.length === 0) {
-        await put(BLOB_NAME, JSON.stringify(defaultData), { access:'public', allowOverwrite:true, contentType:'application/json', token });
+        await put(BLOB_NAME, JSON.stringify(defaultData), { access:'public', addRandomSuffix:false, allowOverwrite:true, contentType:'application/json', token });
         return res.status(200).json(defaultData);
       }
+      // Sort by uploadedAt descending to always use the most recent blob
+      blobs.sort((a, b) => new Date(b.uploadedAt) - new Date(a.uploadedAt));
       const blobRes = await fetch(blobs[0].downloadUrl);
       if (!blobRes.ok) throw new Error('Blob fetch failed: ' + blobRes.status);
       const data = await blobRes.json();
@@ -30,7 +32,7 @@ module.exports = async function handler(req, res) {
     if (req.method === 'POST') {
       let body = req.body;
       if (typeof body === 'string') body = JSON.parse(body);
-      await put(BLOB_NAME, JSON.stringify(body), { access:'public', allowOverwrite:true, contentType:'application/json', token });
+      await put(BLOB_NAME, JSON.stringify(body), { access:'public', addRandomSuffix:false, allowOverwrite:true, contentType:'application/json', token });
       return res.status(200).json({ ok: true });
     }
     return res.status(405).json({ error: 'Metodo nao permitido.' });

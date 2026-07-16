@@ -18,95 +18,104 @@ a{color:#4472C4}
 #login-screen input:focus{border-color:#4472C4}
 #login-screen button{width:100%;padding:11px;background:#4472C4;color:#fff;border:none;border-radius:8px;font-size:15px;cursor:pointer;font-weight:bold}
 #login-screen button:hover{background:#3560b0}
-#login-error{color:#c00000;font-size:13px;margin-top:8px;min-height:20px}
+#login-error{color:#c00;font-size:13px;margin-top:8px}
 
 /* LAYOUT */
 #app{display:none;flex-direction:column;min-height:100vh}
-header{background:#4472C4;color:#fff;padding:12px 16px}
-header h1{font-size:18px;font-weight:bold}
-
-/* TABS */
-.tabs{background:#fff;border-bottom:2px solid #e0e4ef;overflow-x:auto;white-space:nowrap}
-.tabs button{display:inline-block;padding:10px 18px;border:none;background:none;font-size:14px;cursor:pointer;color:#555;font-weight:500;border-bottom:3px solid transparent;transition:.15s}
-.tabs button.active{color:#4472C4;border-bottom-color:#4472C4;font-weight:bold}
-.tabs button:hover:not(.active){color:#333}
-
-/* FILTERS */
-.filters{background:#fff;padding:10px 16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;border-bottom:1px solid #e0e4ef}
-.filters select,.filters input{padding:7px 10px;border:1px solid #ccd;border-radius:7px;font-size:13px;outline:none}
-.filters select:focus,.filters input:focus{border-color:#4472C4}
-.filters label{font-size:12px;color:#666;font-weight:500}
-
-/* CONTENT */
-.tab-content{display:none;padding:16px}
-.tab-content.active{display:block}
-
-/* CARDS KPI */
-.kpi-row{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:18px}
-.kpi{background:#fff;border-radius:10px;box-shadow:0 1px 6px rgba(0,0,0,.08);padding:16px 20px;flex:1;min-width:140px}
-.kpi .label{font-size:12px;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
-.kpi .value{font-size:22px;font-weight:bold}
-.kpi.green .value{color:#0f8a3c}
-.kpi.red .value{color:#c00000}
-.kpi.blue .value{color:#4472C4}
-
-/* TABLES */
-.table-wrap{overflow-x:auto;border-radius:10px;box-shadow:0 1px 6px rgba(0,0,0,.08)}
-table{width:100%;border-collapse:collapse;background:#fff}
-th{background:#4472C4;color:#fff;padding:9px 12px;text-align:left;font-size:13px;white-space:nowrap}
-td{padding:8px 12px;border-bottom:1px solid #f0f2f8;font-size:13px;vertical-align:top}
-tr:last-child td{border-bottom:none}
-tr:hover td{background:#f7f8fd}
-tr.obs-row td{background:#fffde7}
-.obs-text{font-size:11px;color:#888;font-style:italic;margin-top:2px}
-
-/* BADGES/BUTTONS */
-.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:bold;cursor:pointer;border:none;white-space:nowrap}
-.badge.pago{background:#d4f0e2;color:#0f8a3c}
-.badge.nao_pago{background:#fde8e8;color:#c00000}
-.btn{padding:7px 14px;border:none;border-radius:7px;cursor:pointer;font-size:13px;font-weight:500}
-.btn-primary{background:#4472C4;color:#fff}
-.btn-primary:hover{background:#3560b0}
-.btn-danger{background:#c00000;color:#fff}
-.btn-danger:hover{background:#a00000}
-.btn-sm{padding:4px 9px;font-size:12px;border-radius:5px}
-.btn-del{background:#fde8e8;color:#c00000;border:none;border-radius:5px;padding:3px 8px;cursor:pointer;font-size:13px}
-.btn-del:hover{background:#c00000;color:#fff}
-.btn-link{background:none;border:none;color:#4472C4;cursor:pointer;font-size:13px;text-decoration:underline;padding:0}
-
-/* FORMS */
-.form-card{background:#fff;border-radius:10px;box-shadow:0 1px 6px rgba(0,0,0,.08);padding:16px;margin-bottom:16px}
-.form-card h3{font-size:15px;color:#4472C4;margin-bottom:12px;font-weight:bold}
-.form-row{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end}
-.form-group{display:flex;flex-direction:column;gap:4px;flex:1;min-width:120px}
-.form-group label{font-size:12px;color:#666;font-weight:500}
-.form-group input,.form-group select,.form-group textarea{padding:8px 10px;border:1px solid #ccd;border-radius:7px;font-size:13px;outline:none;width:100%}
-.form-group input:focus,.form-group select:focus{border-color:#4472C4}
-
-/* INADIMPLENTES */
-.inadimplente-list{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
-.inadimplente-item{background:#fff;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,.08);padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
-.inadimplente-item .nome{font-weight:bold}
-.inadimplente-item .valor{color:#c00000;font-weight:bold}
-
-/* ESTOQUE NEGATIVO */
-.neg{color:#c00000;font-weight:bold}
-
-/* SECTION TITLE */
-.section-title{font-size:15px;font-weight:bold;color:#333;margin:0 0 10px}
-
-/* LOADING */
-#loading{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(255,255,255,.8);display:flex;align-items:center;justify-content:center;z-index:999;font-size:16px;color:#4472C4;display:none}
 
 /* TOP BAR */
 .top-bar{display:flex;justify-content:space-between;align-items:center;padding:8px 16px;background:#fff;border-bottom:1px solid #e0e4ef}
 .top-bar .site-name{font-weight:bold;color:#4472C4;font-size:15px}
 .btn-logout{background:none;border:1px solid #ccc;border-radius:6px;padding:4px 10px;cursor:pointer;font-size:12px;color:#666}
-.btn-logout:hover{border-color:#c00000;color:#c00000}
+.btn-logout:hover{border-color:#c00;color:#c00}
+
+/* TABS */
+.tabs{display:flex;background:#fff;border-bottom:2px solid #e0e4ef;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{padding:10px 14px;border:none;background:none;cursor:pointer;font-size:13px;color:#666;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-2px;transition:color .15s}
+.tabs button:hover{color:#4472C4}
+.tabs button.active{color:#4472C4;border-bottom-color:#4472C4;font-weight:600}
+
+/* FILTERS */
+.filters{display:flex;gap:12px;align-items:center;padding:8px 16px;background:#fff;border-bottom:1px solid #e0e4ef;flex-wrap:wrap}
+.filters label{font-size:13px;color:#555}
+.filters select,.filters input{padding:5px 8px;border:1px solid #ccd;border-radius:6px;font-size:13px}
+
+/* TAB CONTENT */
+.tab-content{display:none;padding:16px;flex:1}
+.tab-content.active{display:block}
+
+/* CARDS / KPI */
+.kpi-row{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.kpi{background:#fff;border-radius:10px;box-shadow:0 1px 6px rgba(0,0,0,.07);padding:16px 20px;flex:1;min-width:140px}
+.kpi .label{font-size:11px;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.kpi .value{font-size:22px;font-weight:700}
+.kpi.green .value{color:#1a7a3e}
+.kpi.red .value{color:#c0392b}
+.kpi.blue .value{color:#4472C4}
+.kpi.orange .value{color:#e67e22}
+
+/* FORMS */
+.form-card{background:#fff;border-radius:10px;box-shadow:0 1px 6px rgba(0,0,0,.07);padding:16px;margin-bottom:16px}
+.form-card h3{color:#4472C4;margin-bottom:12px;font-size:15px}
+.form-row{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
+.form-group{display:flex;flex-direction:column;gap:4px;min-width:120px}
+.form-group label{font-size:12px;color:#555;font-weight:600}
+.form-group input,.form-group select{padding:7px 10px;border:1px solid #ccd;border-radius:6px;font-size:13px;outline:none}
+.form-group input:focus,.form-group select:focus{border-color:#4472C4}
+
+/* BUTTONS */
+.btn{padding:7px 16px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:600;transition:background .15s}
+.btn-primary{background:#4472C4;color:#fff}
+.btn-primary:hover{background:#3560b0}
+.btn-danger{background:#c0392b;color:#fff}
+.btn-danger:hover{background:#a93226}
+.btn-success{background:#1a7a3e;color:#fff}
+.btn-success:hover{background:#155f31}
+.btn-sm{padding:4px 10px;font-size:12px}
+.btn-outline{background:none;border:1px solid #4472C4;color:#4472C4}
+.btn-outline:hover{background:#4472C4;color:#fff}
+
+/* TABLES */
+.table-wrap{overflow-x:auto;border-radius:10px;box-shadow:0 1px 6px rgba(0,0,0,.07)}
+table{width:100%;border-collapse:collapse;background:#fff;font-size:13px}
+thead tr{background:#4472C4;color:#fff}
+thead th{padding:10px 12px;text-align:left;font-weight:600;white-space:nowrap}
+tbody tr{border-bottom:1px solid #f0f2f8}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#f7f9ff}
+tbody td{padding:9px 12px;vertical-align:middle}
+.badge{display:inline-block;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:600}
+.badge-pago{background:#d4edda;color:#1a7a3e}
+.badge-nao-pago{background:#fde8e8;color:#c0392b}
+
+/* SECTION TITLE */
+.section-title{font-size:13px;font-weight:700;color:#444;text-transform:uppercase;letter-spacing:.5px;margin:16px 0 8px;padding-bottom:4px;border-bottom:2px solid #e0e4ef}
+
+/* CLIENTES */
+.cliente-row{cursor:pointer}
+.cliente-row:hover td{background:#eef2ff}
+.cliente-detail{display:none;background:#f7f9ff}
+.cliente-detail.open{display:table-row-group}
+.cliente-detail td{padding:0}
+.cliente-detail-inner{padding:12px 16px;border-top:1px solid #e0e4ef}
+.devedor-tag{display:inline-block;padding:2px 8px;background:#fde8e8;color:#c0392b;border-radius:12px;font-size:11px;font-weight:700}
+.credor-tag{display:inline-block;padding:2px 8px;background:#d4edda;color:#1a7a3e;border-radius:12px;font-size:11px;font-weight:700}
+
+/* LOADING */
+#loading{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(255,255,255,.85);display:flex;align-items:center;justify-content:center;z-index:999;font-size:16px;color:#4472C4}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.4);z-index:1000;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:#fff;border-radius:12px;padding:24px;width:90%;max-width:480px;box-shadow:0 4px 24px rgba(0,0,0,.2)}
+.modal h3{color:#4472C4;margin-bottom:16px}
+.modal-footer{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
 
 @media(max-width:500px){
   .kpi{min-width:calc(50% - 6px)}
   .form-group{min-width:100%}
+  .tabs button{padding:8px 10px;font-size:12px}
 }
 </style>
 </head>
@@ -137,6 +146,7 @@ tr.obs-row td{background:#fffde7}
   <div class="tabs">
     <button class="active" onclick="switchTab('resumo',this)">Resumo</button>
     <button onclick="switchTab('lancamentos',this)">Lançamentos</button>
+    <button onclick="switchTab('clientes',this)">Clientes</button>
     <button onclick="switchTab('reposicao',this)">Reposição</button>
     <button onclick="switchTab('estoque',this)">Estoque</button>
     <button onclick="switchTab('precos',this)">Preços</button>
@@ -159,7 +169,7 @@ tr.obs-row td{background:#fffde7}
   <div id="tab-resumo" class="tab-content active">
     <div class="kpi-row" id="kpi-resumo"></div>
     <div class="section-title">Inadimplentes (a cobrar)</div>
-    <div class="inadimplente-list" id="inadimplente-list"></div>
+    <div id="inadimplente-list"></div>
     <div class="section-title">Por pessoa</div>
     <div class="table-wrap"><table id="tab-por-pessoa">
       <thead><tr><th>Nome</th><th>Total comprado</th><th>Total pago</th><th>A receber</th></tr></thead>
@@ -174,8 +184,10 @@ tr.obs-row td{background:#fffde7}
       <div class="form-row">
         <div class="form-group"><label>Data</label><input type="date" id="v-data"></div>
         <div class="form-group"><label>Nome</label><input type="text" id="v-nome" placeholder="Nome da pessoa"></div>
-        <div class="form-group"><label>Item</label><select id="v-item"></select></div>
-        <div class="form-group"><label>Qtd</label><input type="number" id="v-qtd" value="1" min="1"></div>
+        <div class="form-group"><label>Item</label><select id="v-item" onchange="updateVPrice()"></select></div>
+        <div class="form-group"><label>Qtd</label><input type="number" id="v-qtd" value="1" min="1" oninput="updateVTotal()"></div>
+        <div class="form-group"><label>Preço unit (R$)</label><input type="number" id="v-preco" step="0.01" min="0" oninput="updateVTotal()"></div>
+        <div class="form-group"><label>Total (R$)</label><input type="text" id="v-total" readonly style="background:#f4f6fb;font-weight:bold;color:#4472C4"></div>
         <div class="form-group"><label>Status</label>
           <select id="v-status"><option value="pago">Pago</option><option value="nao_pago">Não pago</option></select>
         </div>
@@ -187,37 +199,60 @@ tr.obs-row td{background:#fffde7}
     </div>
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
       <div class="section-title" style="margin:0">Vendas</div>
-      <button class="btn btn-danger btn-sm" onclick="limparTudo()">🗑 Limpar tudo</button>
+      <button class="btn btn-danger btn-sm" onclick="limparTudo()">🗑️ Limpar tudo</button>
     </div>
     <div class="table-wrap"><table id="tab-vendas">
-      <thead><tr><th>Data</th><th>Nome</th><th>Item</th><th>Qtd</th><th>Valor</th><th>Status</th><th></th></tr></thead>
+      <thead><tr><th>Data</th><th>Nome</th><th>Item</th><th>Qtd</th><th>Preço</th><th>Total</th><th>Status</th><th></th></tr></thead>
       <tbody></tbody>
     </table></div>
+  </div>
+
+  <!-- TAB: CLIENTES -->
+  <div id="tab-clientes" class="tab-content">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap">
+      <div class="section-title" style="margin:0">Clientes</div>
+      <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer">
+        <input type="checkbox" id="filtro-devedores" onchange="render()">
+        Mostrar só devedores
+      </label>
+    </div>
+    <div class="table-wrap">
+      <table id="tab-clientes-table">
+        <thead><tr><th>Nome</th><th>Total comprado</th><th>Total pago</th><th>Saldo devedor</th><th>Situação</th><th></th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
   </div>
 
   <!-- TAB: REPOSIÇÃO -->
   <div id="tab-reposicao" class="tab-content">
     <div class="form-card">
-      <h3>Registrar reposição</h3>
+      <h3>Registrar reposição de estoque</h3>
       <div class="form-row">
         <div class="form-group"><label>Data</label><input type="date" id="r-data"></div>
-        <div class="form-group"><label>Item</label><select id="r-item"></select></div>
+        <div class="form-group" style="min-width:140px"><label>Nr Nota Fiscal</label><input type="text" id="r-nf" placeholder="Ex: NF-001"></div>
+        <div class="form-group"><label>Item</label><select id="r-item" onchange="updateRPV()"></select></div>
         <div class="form-group"><label>Qtd</label><input type="number" id="r-qtd" value="1" min="1"></div>
+        <div class="form-group"><label>Preço compra unit (R$)</label><input type="number" id="r-pc" step="0.01" min="0" placeholder="0.00"></div>
+        <div class="form-group"><label>Preço venda unit (R$)</label><input type="number" id="r-pv" step="0.01" min="0" placeholder="0.00"></div>
         <div class="form-group" style="justify-content:flex-end">
           <button class="btn btn-primary" onclick="addReposicao()">Adicionar</button>
         </div>
       </div>
     </div>
+    <div class="section-title">Histórico de reposições</div>
     <div class="table-wrap"><table id="tab-repos">
-      <thead><tr><th>Data</th><th>Item</th><th>Qtd</th><th></th></tr></thead>
+      <thead><tr><th>Data</th><th>NF</th><th>Item</th><th>Qtd</th><th>Preço Compra</th><th>Preço Venda</th><th>Total Compra</th><th>Margem</th><th></th></tr></thead>
       <tbody></tbody>
     </table></div>
   </div>
 
   <!-- TAB: ESTOQUE -->
   <div id="tab-estoque" class="tab-content">
-    <div class="table-wrap"><table id="tab-est">
-      <thead><tr><th>Item</th><th>Total reposto</th><th>Total vendido</th><th>Estoque atual</th></tr></thead>
+    <div class="kpi-row" id="kpi-estoque"></div>
+    <div class="section-title">Estoque por lote (NF)</div>
+    <div class="table-wrap"><table id="tab-estoque-table">
+      <thead><tr><th>NF</th><th>Data</th><th>Item</th><th>Qtd Comprada</th><th>Qtd Vendida</th><th>Saldo</th><th>Preço Compra</th><th>Preço Venda</th><th>Custo Total</th><th>Fat. Potencial</th><th>Resultado</th></tr></thead>
       <tbody></tbody>
     </table></div>
   </div>
@@ -227,14 +262,15 @@ tr.obs-row td{background:#fffde7}
     <div class="form-card">
       <h3>Novo item</h3>
       <div class="form-row">
-        <div class="form-group"><label>Nome do item</label><input type="text" id="p-nome" placeholder="Ex: Pastel"></div>
-        <div class="form-group"><label>Preço (R$)</label><input type="number" id="p-preco" value="10" min="0" step="0.5"></div>
+        <div class="form-group" style="min-width:200px"><label>Nome do item</label><input type="text" id="p-nome" placeholder="Ex: Pastel"></div>
+        <div class="form-group"><label>Preço (R$)</label><input type="number" id="p-preco" step="0.01" min="0" value="10"></div>
         <div class="form-group" style="justify-content:flex-end">
-          <button class="btn btn-primary" onclick="addPreco()">Adicionar</button>
+          <button class="btn btn-primary" onclick="addItem()">Adicionar</button>
         </div>
       </div>
     </div>
-    <div class="table-wrap"><table id="tab-prec">
+    <div class="section-title">Tabela de preços</div>
+    <div class="table-wrap"><table id="tab-precos-table">
       <thead><tr><th>Item</th><th>Preço (R$)</th><th></th></tr></thead>
       <tbody></tbody>
     </table></div>
@@ -243,13 +279,11 @@ tr.obs-row td{background:#fffde7}
   <!-- TAB: BANCO -->
   <div id="tab-banco" class="tab-content">
     <div class="kpi-row" id="kpi-banco"></div>
-    <div class="form-card" style="margin-bottom:12px">
-      <div class="form-row" style="align-items:center">
-        <div class="form-group" style="flex:0 0 auto">
-          <label>Saldo inicial (R$)</label>
-          <input type="number" id="b-saldo-inicial" step="0.01" style="width:160px">
-        </div>
-        <button class="btn btn-primary" style="margin-top:20px" onclick="saveSaldoInicial()">Salvar</button>
+    <div class="form-card" style="max-width:400px">
+      <h3>Saldo inicial (R$)</h3>
+      <div class="form-row">
+        <div class="form-group" style="flex:1"><input type="number" id="banco-inicial" step="0.01"></div>
+        <div class="form-group"><button class="btn btn-primary" onclick="saveSaldoInicial()">Salvar</button></div>
       </div>
     </div>
     <div class="form-card">
@@ -259,199 +293,221 @@ tr.obs-row td{background:#fffde7}
         <div class="form-group"><label>Tipo</label>
           <select id="b-tipo"><option value="entrada">Entrada</option><option value="saida">Saída</option></select>
         </div>
-        <div class="form-group"><label>Descrição</label><input type="text" id="b-desc" placeholder="Ex: Compra de ingredientes"></div>
-        <div class="form-group"><label>Valor (R$)</label><input type="number" id="b-valor" min="0" step="0.01" value="0"></div>
+        <div class="form-group" style="min-width:180px"><label>Descrição</label><input type="text" id="b-desc" placeholder="Ex: Compra de ingredientes"></div>
+        <div class="form-group"><label>Valor (R$)</label><input type="number" id="b-valor" step="0.01" min="0" value="0"></div>
         <div class="form-group" style="justify-content:flex-end">
           <button class="btn btn-primary" onclick="addMovimento()">Adicionar</button>
         </div>
       </div>
     </div>
     <div class="section-title">Movimentações</div>
-    <div class="table-wrap"><table id="tab-banco-mov">
+    <div class="table-wrap"><table id="tab-banco-table">
       <thead><tr><th>Data</th><th>Tipo</th><th>Descrição</th><th>Valor</th><th></th></tr></thead>
       <tbody></tbody>
     </table></div>
   </div>
+</div>
 
-</div><!-- /app -->
+<!-- MODAL DETALHE CLIENTE -->
+<div class="modal-overlay" id="modal-cliente">
+  <div class="modal">
+    <h3 id="modal-cliente-nome">Cliente</h3>
+    <div id="modal-cliente-content"></div>
+    <div class="modal-footer">
+      <button class="btn btn-outline btn-sm" onclick="closeModal()">Fechar</button>
+    </div>
+  </div>
+</div>
 
 <script>
+// ─── CONFIG ──────────────────────────────────────────────────────────────────
+const API = '/api/data';
+const PWD_KEY = 'salgados_pwd';
+
 // ─── STATE ───────────────────────────────────────────────────────────────────
-let state = null;
+let state = {
+  precos: { "Bauru":8,"Coxinha de frango":10,"Mini pizza de calabresa":10,"Dog":8,"Brownie":10,"Empada":8 },
+  vendas: [],
+  reposicoes: [],
+  banco: { saldoInicial: 138, movimentos: [] }
+};
 let pwd = '';
 
-const API = '/api/data';
-
-function uid() {
-  return Date.now().toString(36) + Math.random().toString(36).slice(2,7);
-}
-function fmt(v) {
-  return 'R$ ' + (Number(v)||0).toFixed(2).replace('.',',');
-}
-function today() {
-  return new Date().toISOString().slice(0,10);
-}
-function fmtDate(d) {
-  if(!d) return '';
-  const [y,m,dd] = d.split('-');
-  return `${dd}/${m}/${y}`;
-}
-
 // ─── AUTH ─────────────────────────────────────────────────────────────────────
-async function doLogin() {
-  const input = document.getElementById('login-input');
-  const err = document.getElementById('login-error');
-  pwd = input.value.trim();
-  if (!pwd) { err.textContent = 'Digite a senha.'; return; }
-  err.textContent = '';
-  showLoading(true);
-  try {
-    const ok = await fetchData();
-    if (ok) {
-      localStorage.setItem('salgados_pwd', pwd);
-      showApp();
-    } else {
-      err.textContent = 'Senha incorreta.';
-      pwd = '';
-    }
-  } catch(e) {
-    err.textContent = 'Erro de conexão. Tente novamente.';
-  }
-  showLoading(false);
+function doLogin() {
+  const p = document.getElementById('login-input').value;
+  if (!p) return;
+  pwd = p;
+  localStorage.setItem(PWD_KEY, p);
+  loadData();
 }
-
 function doLogout() {
-  localStorage.removeItem('salgados_pwd');
-  pwd = '';
-  state = null;
-  document.getElementById('app').style.display = 'none';
-  document.getElementById('login-screen').style.display = 'flex';
-  document.getElementById('login-input').value = '';
+  localStorage.removeItem(PWD_KEY);
+  location.reload();
 }
 
-async function autoLogin() {
-  const saved = localStorage.getItem('salgados_pwd');
-  if (!saved) return;
-  pwd = saved;
-  showLoading(true);
+// ─── API ─────────────────────────────────────────────────────────────────────
+async function apiGet() {
+  const r = await fetch(API, { headers: { 'x-site-password': pwd, 'Cache-Control': 'no-cache' } });
+  if (r.status === 401) throw new Error('401');
+  return r.json();
+}
+async function apiPost(data) {
+  const r = await fetch(API, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-site-password': pwd },
+    body: JSON.stringify(data)
+  });
+  if (!r.ok) throw new Error('save failed');
+}
+
+// ─── LOAD / SAVE ─────────────────────────────────────────────────────────────
+async function loadData() {
   try {
-    const ok = await fetchData();
-    if (ok) { showApp(); }
-    else { localStorage.removeItem('salgados_pwd'); pwd = ''; }
-  } catch(e) {}
-  showLoading(false);
-}
-
-function showApp() {
-  document.getElementById('login-screen').style.display = 'none';
-  document.getElementById('app').style.display = 'flex';
-  document.getElementById('app').style.flexDirection = 'column';
-  setDefaultDates();
-  render();
-}
-
-// ─── API ──────────────────────────────────────────────────────────────────────
-async function fetchData() {
-  const res = await fetch(API, { headers: { 'x-site-password': pwd } });
-  if (res.status === 401) return false;
-  if (!res.ok) throw new Error('API error ' + res.status);
-  state = await res.json();
-  return true;
-}
-
-async function saveData() {
-  showLoading(true);
-  try {
-    const res = await fetch(API, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-site-password': pwd },
-      body: JSON.stringify(state)
-    });
-    if (res.status === 401) { doLogout(); return; }
-    if (!res.ok) throw new Error('Save error');
-  } finally {
-    showLoading(false);
+    const data = await apiGet();
+    // migrate old reposicoes (without nf/precoCompra/precoVenda)
+    if (data.reposicoes) {
+      data.reposicoes = data.reposicoes.map(r => ({
+        nf: r.nf || '-',
+        precoCompra: r.precoCompra || 0,
+        precoVenda: r.precoVenda || (data.precos && data.precos[r.item]) || 0,
+        ...r
+      }));
+    }
+    state = { ...state, ...data };
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'flex';
+    document.getElementById('loading').style.display = 'none';
+    initSelects();
+    setTodayDates();
+    buildMonthFilter();
+    render();
+  } catch(e) {
+    document.getElementById('loading').style.display = 'none';
+    if (e.message === '401') {
+      document.getElementById('login-error').textContent = 'Senha incorreta.';
+      localStorage.removeItem(PWD_KEY);
+    } else {
+      document.getElementById('login-error').textContent = 'Erro ao conectar. Tente novamente.';
+    }
   }
-  render();
+}
+async function saveData() {
+  try {
+    await apiPost(state);
+  } catch(e) {
+    alert('Erro ao salvar dados!');
+  }
 }
 
-// ─── UI HELPERS ───────────────────────────────────────────────────────────────
-function showLoading(v) {
-  document.getElementById('loading').style.display = v ? 'flex' : 'none';
-}
+// ─── UTILS ───────────────────────────────────────────────────────────────────
+const fmt = v => 'R$ ' + Number(v||0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const fmtDate = d => d ? d.split('-').reverse().join('/') : '';
+const today = () => new Date().toISOString().split('T')[0];
+const uid = () => Date.now().toString(36) + Math.random().toString(36).substr(2,5);
 
-function switchTab(name, btn) {
-  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.tabs button').forEach(el => el.classList.remove('active'));
-  document.getElementById('tab-' + name).classList.add('active');
-  btn.classList.add('active');
-}
-
-function setDefaultDates() {
-  const t = today();
+function setTodayDates() {
   ['v-data','r-data','b-data'].forEach(id => {
     const el = document.getElementById(id);
-    if (el) el.value = t;
+    if (el && !el.value) el.value = today();
   });
 }
 
-// ─── FILTERS ──────────────────────────────────────────────────────────────────
-function getFilter() {
-  return {
-    mes: document.getElementById('f-mes').value,
-    nome: document.getElementById('f-nome').value.trim().toLowerCase()
-  };
+function getMonthFromDate(d) {
+  return d ? d.substr(0,7) : '';
 }
 
-function vendaMatchFilter(v, f) {
-  if (f.mes && f.mes !== 'todos') {
-    if (!v.data || v.data.slice(0,7) !== f.mes) return false;
-  }
-  if (f.nome && !v.nome.toLowerCase().includes(f.nome)) return false;
-  return true;
-}
-
-function buildMesOptions() {
+function buildMonthFilter() {
   const sel = document.getElementById('f-mes');
+  const months = new Set();
+  state.vendas.forEach(v => { if(v.data) months.add(getMonthFromDate(v.data)); });
+  state.reposicoes.forEach(r => { if(r.data) months.add(getMonthFromDate(r.data)); });
+  state.banco.movimentos.forEach(m => { if(m.data) months.add(getMonthFromDate(m.data)); });
+  months.add(getMonthFromDate(today()));
+  const sorted = [...months].filter(Boolean).sort().reverse();
   const current = sel.value;
-  const meses = new Set();
-  (state.vendas||[]).forEach(v => { if(v.data) meses.add(v.data.slice(0,7)); });
-  const sorted = [...meses].sort().reverse();
-  sel.innerHTML = '<option value="todos">Todos os meses</option>';
-  sorted.forEach(m => {
-    const [y,mo] = m.split('-');
-    const label = new Date(+y, +mo-1, 1).toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
-    const opt = document.createElement('option');
-    opt.value = m; opt.textContent = label.charAt(0).toUpperCase()+label.slice(1);
-    sel.appendChild(opt);
-  });
-  if (current) sel.value = current;
+  sel.innerHTML = '<option value="">Todos os meses</option>' +
+    sorted.map(m => {
+      const [y,mo] = m.split('-');
+      const label = new Date(y, mo-1).toLocaleString('pt-BR',{month:'long',year:'numeric'});
+      return `<option value="${m}" ${m===current?'selected':''}>${label}</option>`;
+    }).join('');
 }
 
-// ─── RENDER ───────────────────────────────────────────────────────────────────
+function getMesFilter() { return document.getElementById('f-mes').value; }
+function getNomeFilter() { return document.getElementById('f-nome').value.trim().toLowerCase(); }
+
+function getFilteredVendas() {
+  const mes = getMesFilter();
+  const nome = getNomeFilter();
+  return state.vendas.filter(v =>
+    (!mes || getMonthFromDate(v.data) === mes) &&
+    (!nome || (v.nome||'').toLowerCase().includes(nome))
+  );
+}
+
+function initSelects() {
+  const items = Object.keys(state.precos);
+  ['v-item','r-item'].forEach(id => {
+    const sel = document.getElementById(id);
+    if (!sel) return;
+    const prev = sel.value;
+    sel.innerHTML = items.map(i => `<option value="${i}" ${i===prev?'selected':''}>${i}</option>`).join('');
+  });
+  updateVPrice();
+  updateRPV();
+}
+
+function updateVPrice() {
+  const item = document.getElementById('v-item')?.value;
+  const pEl = document.getElementById('v-preco');
+  if (item && pEl && state.precos[item] !== undefined) {
+    pEl.value = state.precos[item];
+  }
+  updateVTotal();
+}
+
+function updateVTotal() {
+  const qtd = parseFloat(document.getElementById('v-qtd')?.value) || 0;
+  const preco = parseFloat(document.getElementById('v-preco')?.value) || 0;
+  const totalEl = document.getElementById('v-total');
+  if (totalEl) totalEl.value = fmt(qtd * preco);
+}
+
+function updateRPV() {
+  const item = document.getElementById('r-item')?.value;
+  const pvEl = document.getElementById('r-pv');
+  if (item && pvEl && state.precos[item] !== undefined && !pvEl.value) {
+    pvEl.value = state.precos[item];
+  }
+}
+
+// ─── TAB SWITCH ──────────────────────────────────────────────────────────────
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+  render();
+}
+
+// ─── RENDER ──────────────────────────────────────────────────────────────────
 function render() {
-  if (!state) return;
-  buildMesOptions();
-  buildItemDropdowns();
-  const f = getFilter();
-  renderResumo(f);
-  renderLancamentos(f);
+  renderResumo();
+  renderLancamentos();
+  renderClientes();
   renderReposicao();
   renderEstoque();
   renderPrecos();
   renderBanco();
 }
 
-function precoItem(nome) {
-  return (state.precos && state.precos[nome]) || 0;
-}
-
-// ─── RESUMO ───────────────────────────────────────────────────────────────────
-function renderResumo(f) {
-  const vendas = (state.vendas||[]).filter(v => vendaMatchFilter(v, f));
+// ─── RESUMO ──────────────────────────────────────────────────────────────────
+function renderResumo() {
+  const vendas = getFilteredVendas();
   let recebido = 0, aReceber = 0;
   vendas.forEach(v => {
-    const val = precoItem(v.item) * (v.qtd||1);
+    const val = (v.preco || state.precos[v.item] || 0) * (v.qtd || 1);
     if (v.status === 'pago') recebido += val;
     else aReceber += val;
   });
@@ -463,308 +519,403 @@ function renderResumo(f) {
     <div class="kpi blue"><div class="label">Total de vendas</div><div class="value">${fmt(total)}</div></div>
   `;
 
-  // Por pessoa
-  const pessoas = {};
-  vendas.forEach(v => {
-    if (!pessoas[v.nome]) pessoas[v.nome] = {comprado:0, pago:0, aReceber:0};
-    const val = precoItem(v.item) * (v.qtd||1);
-    pessoas[v.nome].comprado += val;
-    if (v.status === 'pago') pessoas[v.nome].pago += val;
-    else pessoas[v.nome].aReceber += val;
-  });
-
   // Inadimplentes
-  const inad = Object.entries(pessoas).filter(([,p]) => p.aReceber > 0)
-    .sort((a,b) => b[1].aReceber - a[1].aReceber);
-  const inadEl = document.getElementById('inadimplente-list');
-  if (inad.length === 0) {
-    inadEl.innerHTML = '<div style="color:#888;font-size:13px;padding:8px 0">Nenhum pendente 🎉</div>';
+  const devedores = {};
+  state.vendas.filter(v => v.status === 'nao_pago').forEach(v => {
+    if (!devedores[v.nome]) devedores[v.nome] = 0;
+    devedores[v.nome] += (v.preco || state.precos[v.item] || 0) * (v.qtd || 1);
+  });
+  const div = document.getElementById('inadimplente-list');
+  const keys = Object.keys(devedores);
+  if (!keys.length) {
+    div.innerHTML = '<p style="color:#888;font-size:13px;padding:8px 0">Nenhum pendente 🎉</p>';
   } else {
-    inadEl.innerHTML = inad.map(([nome, p]) => `
-      <div class="inadimplente-item">
-        <span class="nome">${nome}</span>
-        <span class="valor">${fmt(p.aReceber)}</span>
-        <button class="btn btn-primary btn-sm" onclick="marcarPagoTudo('${esc(nome)}')">Marcar como pago</button>
-      </div>
-    `).join('');
+    div.innerHTML = keys.map(n =>
+      `<span style="display:inline-block;margin:4px;padding:6px 14px;background:#fde8e8;color:#c0392b;border-radius:20px;font-size:13px;font-weight:600;cursor:pointer" onclick="abrirCliente('${n.replace(/'/g,"\\'")}')">
+        ${n}: ${fmt(devedores[n])}
+      </span>`
+    ).join('');
   }
 
-  // Tabela por pessoa
+  // Por pessoa
+  const por = {};
+  state.vendas.forEach(v => {
+    if (!por[v.nome]) por[v.nome] = { totalComprado:0, totalPago:0 };
+    const val = (v.preco || state.precos[v.item] || 0) * (v.qtd || 1);
+    por[v.nome].totalComprado += val;
+    if (v.status === 'pago') por[v.nome].totalPago += val;
+  });
   const tbody = document.querySelector('#tab-por-pessoa tbody');
-  const rows = Object.entries(pessoas).sort((a,b) => a[0].localeCompare(b[0]));
-  tbody.innerHTML = rows.length === 0
-    ? '<tr><td colspan="4" style="text-align:center;color:#aaa;padding:20px">Sem dados</td></tr>'
-    : rows.map(([nome, p]) => `
-      <tr>
-        <td>${nome}</td>
-        <td>${fmt(p.comprado)}</td>
-        <td style="color:#0f8a3c">${fmt(p.pago)}</td>
-        <td style="color:${p.aReceber>0?'#c00000':'#0f8a3c'}">${fmt(p.aReceber)}</td>
-      </tr>
-    `).join('');
-}
-
-function esc(s) { return String(s).replace(/'/g, "\\'"); }
-
-async function marcarPagoTudo(nome) {
-  const f = getFilter();
-  const pendentes = (state.vendas||[]).filter(v =>
-    v.nome === nome && v.status === 'nao_pago' && vendaMatchFilter(v, f)
-  );
-  if (!pendentes.length) return;
-  const total = pendentes.reduce((s,v) => s + precoItem(v.item)*(v.qtd||1), 0);
-  if (!confirm(`Marcar ${pendentes.length} venda(s) como pagas para "${nome}"?\nTotal: ${fmt(total)}`)) return;
-  pendentes.forEach(v => v.status = 'pago');
-  await saveData();
+  const rows = Object.entries(por).sort((a,b) => (b[1].totalComprado - b[1].totalPago) - (a[1].totalComprado - a[1].totalPago));
+  tbody.innerHTML = rows.length ? rows.map(([nome, d]) => {
+    const dev = d.totalComprado - d.totalPago;
+    return `<tr>
+      <td style="cursor:pointer;color:#4472C4" onclick="abrirCliente('${nome.replace(/'/g,"\\'")}')"><b>${nome}</b></td>
+      <td>${fmt(d.totalComprado)}</td>
+      <td style="color:#1a7a3e">${fmt(d.totalPago)}</td>
+      <td style="color:${dev>0?'#c0392b':'#1a7a3e'};font-weight:${dev>0?'700':'400'}">${fmt(dev)}</td>
+    </tr>`;
+  }).join('') : '<tr><td colspan="4" style="text-align:center;color:#999;padding:16px">Sem dados</td></tr>';
 }
 
 // ─── LANÇAMENTOS ─────────────────────────────────────────────────────────────
-function renderLancamentos(f) {
-  const vendas = (state.vendas||[]).filter(v => vendaMatchFilter(v, f))
-    .slice().sort((a,b) => b.data.localeCompare(a.data));
-
+function renderLancamentos() {
+  const vendas = getFilteredVendas();
   const tbody = document.querySelector('#tab-vendas tbody');
-  if (vendas.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#aaa;padding:20px">Sem vendas no período</td></tr>';
-    return;
-  }
-  tbody.innerHTML = vendas.map(v => {
-    const val = precoItem(v.item) * (v.qtd||1);
-    const rowClass = v.obs ? 'class="obs-row"' : '';
-    const obsHtml = v.obs ? `<div class="obs-text">📝 ${v.obs}</div>` : '';
-    return `<tr ${rowClass}>
+  tbody.innerHTML = vendas.length ? [...vendas].reverse().map(v => {
+    const val = (v.preco || state.precos[v.item] || 0) * (v.qtd || 1);
+    return `<tr>
       <td>${fmtDate(v.data)}</td>
-      <td>${v.nome}${obsHtml}</td>
+      <td>${v.nome}</td>
       <td>${v.item}</td>
       <td>${v.qtd}</td>
+      <td>${fmt(v.preco || state.precos[v.item] || 0)}</td>
       <td>${fmt(val)}</td>
-      <td><button class="badge ${v.status}" onclick="toggleStatus('${v.id}')">${v.status==='pago'?'Pago':'Não pago'}</button></td>
-      <td><button class="btn-del" onclick="delVenda('${v.id}')">✕</button></td>
+      <td><span class="badge badge-${v.status==='pago'?'pago':'nao-pago'}">${v.status==='pago'?'Pago':'Não pago'}</span></td>
+      <td>
+        ${v.status==='nao_pago'?`<button class="btn btn-success btn-sm" onclick="marcarPago('${v.id}')">✓ Pago</button> `:''}
+        <button class="btn btn-danger btn-sm" onclick="removeVenda('${v.id}')">✕</button>
+      </td>
     </tr>`;
-  }).join('');
+  }).join('') : '<tr><td colspan="8" style="text-align:center;color:#999;padding:16px">Sem vendas no período</td></tr>';
 }
 
-async function addVenda() {
+function addVenda() {
   const data = document.getElementById('v-data').value;
   const nome = document.getElementById('v-nome').value.trim();
   const item = document.getElementById('v-item').value;
-  const qtd = parseInt(document.getElementById('v-qtd').value)||1;
+  const qtd = parseInt(document.getElementById('v-qtd').value);
+  const preco = parseFloat(document.getElementById('v-preco').value);
   const status = document.getElementById('v-status').value;
   const obs = document.getElementById('v-obs').value.trim();
-
-  if (!nome) { alert('Informe o nome da pessoa.'); return; }
-  if (!item) { alert('Selecione um item.'); return; }
-  if (!data) { alert('Informe a data.'); return; }
-
-  state.vendas.push({ id: uid(), data, nome, item, qtd, status, obs });
+  if (!data || !nome || !item || !qtd || isNaN(preco)) { alert('Preencha todos os campos obrigatórios.'); return; }
+  state.vendas.push({ id: uid(), data, nome, item, qtd, preco, status, obs });
   document.getElementById('v-nome').value = '';
+  document.getElementById('v-qtd').value = 1;
   document.getElementById('v-obs').value = '';
-  document.getElementById('v-qtd').value = '1';
-  await saveData();
+  buildMonthFilter();
+  saveData();
+  render();
 }
 
-async function toggleStatus(id) {
-  const v = state.vendas.find(x => x.id === id);
-  if (!v) return;
-  v.status = v.status === 'pago' ? 'nao_pago' : 'pago';
-  await saveData();
+function removeVenda(id) {
+  if (!confirm('Remover esta venda?')) return;
+  state.vendas = state.vendas.filter(v => v.id !== id);
+  saveData(); render();
 }
 
-async function delVenda(id) {
-  if (!confirm('Excluir esta venda?')) return;
-  state.vendas = state.vendas.filter(x => x.id !== id);
-  await saveData();
+function marcarPago(id) {
+  const v = state.vendas.find(v => v.id === id);
+  if (v) { v.status = 'pago'; saveData(); render(); }
 }
 
-async function limparTudo() {
-  if (!confirm('⚠️ Tem certeza que quer APAGAR TODAS as vendas? Esta ação não pode ser desfeita.')) return;
-  if (!confirm('Confirme novamente: apagar TUDO mesmo?')) return;
+function limparTudo() {
+  if (!confirm('Limpar TODAS as vendas?')) return;
   state.vendas = [];
-  await saveData();
+  saveData(); render();
 }
 
-// ─── REPOSIÇÃO ────────────────────────────────────────────────────────────────
-function renderReposicao() {
-  const repos = (state.reposicoes||[]).slice().sort((a,b) => b.data.localeCompare(a.data));
-  const tbody = document.querySelector('#tab-repos tbody');
-  tbody.innerHTML = repos.length === 0
-    ? '<tr><td colspan="4" style="text-align:center;color:#aaa;padding:20px">Sem reposições</td></tr>'
-    : repos.map(r => `<tr>
-        <td>${fmtDate(r.data)}</td>
-        <td>${r.item}</td>
-        <td>${r.qtd}</td>
-        <td><button class="btn-del" onclick="delReposicao('${r.id}')">✕</button></td>
-      </tr>`).join('');
-}
+// ─── CLIENTES ─────────────────────────────────────────────────────────────────
+function renderClientes() {
+  const soDevedores = document.getElementById('filtro-devedores')?.checked;
+  const nomeFilter = getNomeFilter();
 
-async function addReposicao() {
-  const data = document.getElementById('r-data').value;
-  const item = document.getElementById('r-item').value;
-  const qtd = parseInt(document.getElementById('r-qtd').value)||1;
-  if (!data || !item) { alert('Preencha todos os campos.'); return; }
-  if (!state.reposicoes) state.reposicoes = [];
-  state.reposicoes.push({ id: uid(), data, item, qtd });
-  document.getElementById('r-qtd').value = '1';
-  await saveData();
-}
+  const clientes = {};
+  state.vendas.forEach(v => {
+    if (nomeFilter && !(v.nome||'').toLowerCase().includes(nomeFilter)) return;
+    if (!clientes[v.nome]) clientes[v.nome] = { nome: v.nome, vendas: [], totalComprado: 0, totalPago: 0 };
+    const val = (v.preco || state.precos[v.item] || 0) * (v.qtd || 1);
+    clientes[v.nome].vendas.push({ ...v, valor: val });
+    clientes[v.nome].totalComprado += val;
+    if (v.status === 'pago') clientes[v.nome].totalPago += val;
+  });
 
-async function delReposicao(id) {
-  if (!confirm('Excluir esta reposição?')) return;
-  state.reposicoes = (state.reposicoes||[]).filter(x => x.id !== id);
-  await saveData();
-}
+  let rows = Object.values(clientes).sort((a,b) => (b.totalComprado-b.totalPago)-(a.totalComprado-a.totalPago));
+  if (soDevedores) rows = rows.filter(c => c.totalComprado > c.totalPago);
 
-// ─── ESTOQUE ──────────────────────────────────────────────────────────────────
-function renderEstoque() {
-  const itens = Object.keys(state.precos||{});
-  const tbody = document.querySelector('#tab-est tbody');
-  if (itens.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:#aaa;padding:20px">Sem itens cadastrados</td></tr>';
-    return;
-  }
-  tbody.innerHTML = itens.map(item => {
-    const reposto = (state.reposicoes||[]).filter(r=>r.item===item).reduce((s,r)=>s+(r.qtd||0),0);
-    const vendido = (state.vendas||[]).filter(v=>v.item===item).reduce((s,v)=>s+(v.qtd||0),0);
-    const atual = reposto - vendido;
-    return `<tr>
-      <td>${item}</td>
-      <td>${reposto}</td>
-      <td>${vendido}</td>
-      <td class="${atual<0?'neg':''}">${atual}</td>
+  const tbody = document.querySelector('#tab-clientes-table tbody');
+  tbody.innerHTML = rows.length ? rows.map(c => {
+    const dev = c.totalComprado - c.totalPago;
+    return `<tr class="cliente-row" onclick="abrirCliente('${c.nome.replace(/'/g,"\\'")}')">
+      <td style="color:#4472C4;font-weight:600">${c.nome}</td>
+      <td>${fmt(c.totalComprado)}</td>
+      <td style="color:#1a7a3e">${fmt(c.totalPago)}</td>
+      <td style="color:${dev>0?'#c0392b':'#1a7a3e'};font-weight:700">${fmt(dev)}</td>
+      <td>${dev>0?'<span class="devedor-tag">DEVEDOR</span>':'<span class="credor-tag">EM DIA</span>'}</td>
+      <td><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();abrirCliente('${c.nome.replace(/'/g,"\\'")}')">Ver detalhes</button></td>
     </tr>`;
-  }).join('');
+  }).join('') : '<tr><td colspan="6" style="text-align:center;color:#999;padding:16px">Nenhum cliente encontrado</td></tr>';
 }
 
-// ─── PREÇOS ───────────────────────────────────────────────────────────────────
+function abrirCliente(nome) {
+  const vendas = state.vendas.filter(v => v.nome === nome);
+  const totalComprado = vendas.reduce((s,v) => s + (v.preco||state.precos[v.item]||0)*(v.qtd||1), 0);
+  const totalPago = vendas.filter(v=>v.status==='pago').reduce((s,v) => s + (v.preco||state.precos[v.item]||0)*(v.qtd||1), 0);
+  const dev = totalComprado - totalPago;
+
+  document.getElementById('modal-cliente-nome').textContent = '👤 ' + nome;
+  document.getElementById('modal-cliente-content').innerHTML = `
+    <div class="kpi-row" style="margin-bottom:12px">
+      <div class="kpi blue" style="padding:10px 14px"><div class="label">Total</div><div class="value" style="font-size:18px">${fmt(totalComprado)}</div></div>
+      <div class="kpi green" style="padding:10px 14px"><div class="label">Pago</div><div class="value" style="font-size:18px">${fmt(totalPago)}</div></div>
+      <div class="kpi ${dev>0?'red':'green'}" style="padding:10px 14px"><div class="label">Saldo</div><div class="value" style="font-size:18px">${fmt(dev)}</div></div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Data</th><th>Item</th><th>Qtd</th><th>Valor</th><th>Status</th><th></th></tr></thead>
+        <tbody>
+          ${vendas.length ? [...vendas].reverse().map(v => {
+            const val = (v.preco||state.precos[v.item]||0)*(v.qtd||1);
+            return `<tr>
+              <td>${fmtDate(v.data)}</td>
+              <td>${v.item}</td>
+              <td>${v.qtd}</td>
+              <td>${fmt(val)}</td>
+              <td><span class="badge badge-${v.status==='pago'?'pago':'nao-pago'}">${v.status==='pago'?'Pago':'Não pago'}</span></td>
+              <td>${v.status==='nao_pago'?`<button class="btn btn-success btn-sm" onclick="marcarPagoModal('${v.id}','${nome.replace(/'/g,"\\'")}')">✓ Pago</button>`:''}
+              </td>
+            </tr>`;
+          }).join('') : '<tr><td colspan="6" style="text-align:center;color:#999;padding:12px">Sem vendas</td></tr>'}
+        </tbody>
+      </table>
+    </div>
+  `;
+  document.getElementById('modal-cliente').classList.add('open');
+}
+
+function marcarPagoModal(id, nome) {
+  const v = state.vendas.find(v => v.id === id);
+  if (v) { v.status = 'pago'; saveData(); render(); abrirCliente(nome); }
+}
+
+function closeModal() {
+  document.getElementById('modal-cliente').classList.remove('open');
+}
+
+// fechar modal ao clicar fora
+document.getElementById('modal-cliente').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+// ─── REPOSIÇÃO ───────────────────────────────────────────────────────────────
+function renderReposicao() {
+  const mes = getMesFilter();
+  const repos = state.reposicoes.filter(r => !mes || getMonthFromDate(r.data) === mes);
+  const tbody = document.querySelector('#tab-repos tbody');
+  tbody.innerHTML = repos.length ? [...repos].reverse().map(r => {
+    const totalCompra = (r.precoCompra||0) * (r.qtd||0);
+    const margem = ((r.precoVenda||0) - (r.precoCompra||0));
+    const margemCor = margem >= 0 ? '#1a7a3e' : '#c0392b';
+    return `<tr>
+      <td>${fmtDate(r.data)}</td>
+      <td><b>${r.nf||'-'}</b></td>
+      <td>${r.item}</td>
+      <td>${r.qtd}</td>
+      <td>${fmt(r.precoCompra||0)}</td>
+      <td>${fmt(r.precoVenda||0)}</td>
+      <td>${fmt(totalCompra)}</td>
+      <td style="color:${margemCor};font-weight:700">${fmt(margem)} (${r.precoCompra?Math.round(margem/(r.precoCompra)*100)+'%':'–'})</td>
+      <td><button class="btn btn-danger btn-sm" onclick="removeRepo('${r.id}')">✕</button></td>
+    </tr>`;
+  }).join('') : '<tr><td colspan="9" style="text-align:center;color:#999;padding:16px">Nenhuma reposição registrada</td></tr>';
+}
+
+function addReposicao() {
+  const data = document.getElementById('r-data').value;
+  const nf = document.getElementById('r-nf').value.trim();
+  const item = document.getElementById('r-item').value;
+  const qtd = parseInt(document.getElementById('r-qtd').value);
+  const precoCompra = parseFloat(document.getElementById('r-pc').value);
+  const precoVenda = parseFloat(document.getElementById('r-pv').value);
+  if (!data || !nf || !item || !qtd || isNaN(precoCompra) || isNaN(precoVenda)) {
+    alert('Preencha todos os campos, incluindo NF e preços.'); return;
+  }
+  state.reposicoes.push({ id: uid(), data, nf, item, qtd, precoCompra, precoVenda });
+  // Atualiza preço de venda padrão deste item
+  state.precos[item] = precoVenda;
+  document.getElementById('r-nf').value = '';
+  document.getElementById('r-qtd').value = 1;
+  document.getElementById('r-pc').value = '';
+  document.getElementById('r-pv').value = '';
+  buildMonthFilter();
+  initSelects();
+  saveData(); render();
+}
+
+function removeRepo(id) {
+  if (!confirm('Remover este lote?')) return;
+  state.reposicoes = state.reposicoes.filter(r => r.id !== id);
+  saveData(); render();
+}
+
+// ─── ESTOQUE ─────────────────────────────────────────────────────────────────
+function renderEstoque() {
+  // Per-item: vendas quantity
+  const vendaQtdByItem = {};
+  state.vendas.forEach(v => {
+    vendaQtdByItem[v.item] = (vendaQtdByItem[v.item]||0) + (v.qtd||1);
+  });
+
+  // Per-batch: assign vendas FIFO (simplified: by item, oldest batches first)
+  // We compute remaining qtd per batch
+  const batchesByItem = {};
+  state.reposicoes.forEach(r => {
+    if (!batchesByItem[r.item]) batchesByItem[r.item] = [];
+    batchesByItem[r.item].push({ ...r, qtdVendida: 0, saldo: r.qtd });
+  });
+
+  // FIFO assignment per item
+  Object.keys(batchesByItem).forEach(item => {
+    let toAssign = vendaQtdByItem[item] || 0;
+    const batches = batchesByItem[item].sort((a,b) => a.data.localeCompare(b.data));
+    batches.forEach(b => {
+      const vendido = Math.min(toAssign, b.qtd);
+      b.qtdVendida = vendido;
+      b.saldo = b.qtd - vendido;
+      toAssign -= vendido;
+    });
+  });
+
+  // Flatten sorted by date desc
+  const allBatches = Object.values(batchesByItem).flat().sort((a,b) => b.data.localeCompare(a.data));
+
+  let totalCusto = 0, totalFatPotencial = 0, totalResultado = 0, totalSaldo = 0;
+
+  const tbody = document.querySelector('#tab-estoque-table tbody');
+  tbody.innerHTML = allBatches.length ? allBatches.map(b => {
+    const custo = (b.precoCompra||0) * b.qtd;
+    const fatPotencial = (b.precoVenda||0) * b.qtd;
+    const resultado = fatPotencial - custo;
+    const saldoCor = b.saldo > 0 ? '#1a7a3e' : '#888';
+    const resCor = resultado >= 0 ? '#1a7a3e' : '#c0392b';
+    totalCusto += custo; totalFatPotencial += fatPotencial;
+    totalResultado += resultado; totalSaldo += b.saldo;
+    return `<tr>
+      <td><b>${b.nf||'-'}</b></td>
+      <td>${fmtDate(b.data)}</td>
+      <td>${b.item}</td>
+      <td>${b.qtd}</td>
+      <td>${b.qtdVendida}</td>
+      <td style="color:${saldoCor};font-weight:700">${b.saldo}</td>
+      <td>${fmt(b.precoCompra||0)}</td>
+      <td>${fmt(b.precoVenda||0)}</td>
+      <td>${fmt(custo)}</td>
+      <td>${fmt(fatPotencial)}</td>
+      <td style="color:${resCor};font-weight:700">${fmt(resultado)}</td>
+    </tr>`;
+  }).join('') : '<tr><td colspan="11" style="text-align:center;color:#999;padding:16px">Nenhum lote registrado</td></tr>';
+
+  document.getElementById('kpi-estoque').innerHTML = `
+    <div class="kpi orange"><div class="label">Total investido</div><div class="value">${fmt(totalCusto)}</div></div>
+    <div class="kpi blue"><div class="label">Fat. potencial</div><div class="value">${fmt(totalFatPotencial)}</div></div>
+    <div class="kpi ${totalResultado>=0?'green':'red'}"><div class="label">Resultado potencial</div><div class="value">${fmt(totalResultado)}</div></div>
+    <div class="kpi blue"><div class="label">Unidades em estoque</div><div class="value">${totalSaldo}</div></div>
+  `;
+}
+
+// ─── PREÇOS ──────────────────────────────────────────────────────────────────
 function renderPrecos() {
-  const tbody = document.querySelector('#tab-prec tbody');
-  const itens = Object.entries(state.precos||{});
-  tbody.innerHTML = itens.length === 0
-    ? '<tr><td colspan="3" style="text-align:center;color:#aaa;padding:20px">Sem itens</td></tr>'
-    : itens.map(([nome, preco]) => `<tr>
-        <td>${nome}</td>
-        <td><input type="number" value="${preco}" min="0" step="0.5"
-          style="width:100px;padding:5px;border:1px solid #ccd;border-radius:6px"
-          onchange="updatePreco('${esc(nome)}', this.value)"></td>
-        <td><button class="btn-del" onclick="delPreco('${esc(nome)}')">✕</button></td>
-      </tr>`).join('');
+  const tbody = document.querySelector('#tab-precos-table tbody');
+  tbody.innerHTML = Object.entries(state.precos).map(([item, preco]) =>
+    `<tr>
+      <td>${item}</td>
+      <td><input type="number" value="${preco}" step="0.01" min="0" style="width:90px;padding:5px 8px;border:1px solid #ccd;border-radius:6px;font-size:13px"
+          onchange="updatePreco('${item.replace(/'/g,"\\'")}',this.value)"></td>
+      <td><button class="btn btn-danger btn-sm" onclick="removeItem('${item.replace(/'/g,"\\'")}')">✕</button></td>
+    </tr>`
+  ).join('') || '<tr><td colspan="3" style="text-align:center;color:#999;padding:16px">Nenhum item</td></tr>';
 }
 
-async function updatePreco(nome, val) {
-  state.precos[nome] = parseFloat(val)||0;
-  await saveData();
-}
-
-async function delPreco(nome) {
-  if (!confirm(`Excluir o item "${nome}"?`)) return;
-  delete state.precos[nome];
-  await saveData();
-}
-
-async function addPreco() {
+function addItem() {
   const nome = document.getElementById('p-nome').value.trim();
-  const preco = parseFloat(document.getElementById('p-preco').value)||0;
-  if (!nome) { alert('Informe o nome do item.'); return; }
-  if (state.precos[nome] !== undefined) { alert('Item já existe.'); return; }
+  const preco = parseFloat(document.getElementById('p-preco').value);
+  if (!nome) { alert('Digite o nome do item.'); return; }
+  if (isNaN(preco)) { alert('Digite um preço válido.'); return; }
   state.precos[nome] = preco;
   document.getElementById('p-nome').value = '';
-  document.getElementById('p-preco').value = '10';
-  await saveData();
+  document.getElementById('p-preco').value = 10;
+  initSelects();
+  saveData(); render();
 }
 
-// ─── BANCO ────────────────────────────────────────────────────────────────────
+function updatePreco(item, val) {
+  state.precos[item] = parseFloat(val) || 0;
+  saveData();
+}
+
+function removeItem(item) {
+  if (!confirm(`Remover o item "${item}"?`)) return;
+  delete state.precos[item];
+  initSelects();
+  saveData(); render();
+}
+
+// ─── BANCO ───────────────────────────────────────────────────────────────────
 function renderBanco() {
-  const banco = state.banco || { saldoInicial: 0, movimentos: [] };
-  document.getElementById('b-saldo-inicial').value = banco.saldoInicial || 0;
+  const mes = getMesFilter();
+  document.getElementById('banco-inicial').value = state.banco.saldoInicial || 0;
 
-  // Construir lista combinada
-  const manuais = (banco.movimentos||[]).map(m => ({...m, _manual: true}));
-  const deVendas = (state.vendas||[]).filter(v => v.status === 'pago').map(v => ({
-    id: 'v-'+v.id,
-    data: v.data,
-    tipo: 'entrada',
-    descricao: `Venda - ${v.nome} (${v.item})`,
-    valor: precoItem(v.item) * (v.qtd||1),
-    _manual: false
-  }));
-
-  const todos = [...manuais, ...deVendas].sort((a,b) => b.data.localeCompare(a.data));
-
-  // KPIs (vida toda, sem filtro de mês)
-  let entradas = banco.saldoInicial || 0;
-  let entradasManuais = 0, saidasManuais = 0;
-  manuais.forEach(m => {
-    if (m.tipo === 'entrada') entradasManuais += m.valor;
-    else saidasManuais += m.valor;
+  let entradas = 0, saidas = 0;
+  const movimentos = state.banco.movimentos.filter(m => !mes || getMonthFromDate(m.data) === mes);
+  movimentos.forEach(m => {
+    if (m.tipo === 'entrada') entradas += m.valor;
+    else saidas += m.valor;
   });
-  const vendasPagas = deVendas.reduce((s,v) => s+v.valor, 0);
-  const saldo = (banco.saldoInicial||0) + entradasManuais + vendasPagas - saidasManuais;
-  const totalEnt = entradasManuais + vendasPagas;
+  const saldoAtual = (state.banco.saldoInicial || 0) + entradas - saidas;
 
   document.getElementById('kpi-banco').innerHTML = `
-    <div class="kpi blue"><div class="label">Saldo atual</div><div class="value">${fmt(saldo)}</div></div>
-    <div class="kpi green"><div class="label">Total entradas</div><div class="value">${fmt(totalEnt)}</div></div>
-    <div class="kpi red"><div class="label">Total saídas</div><div class="value">${fmt(saidasManuais)}</div></div>
+    <div class="kpi blue"><div class="label">Saldo atual</div><div class="value">${fmt(saldoAtual)}</div></div>
+    <div class="kpi green"><div class="label">Total entradas</div><div class="value">${fmt(entradas)}</div></div>
+    <div class="kpi red"><div class="label">Total saídas</div><div class="value">${fmt(saidas)}</div></div>
   `;
 
-  const tbody = document.querySelector('#tab-banco-mov tbody');
-  tbody.innerHTML = todos.length === 0
-    ? '<tr><td colspan="5" style="text-align:center;color:#aaa;padding:20px">Sem movimentações</td></tr>'
-    : todos.map(m => {
-        const cor = m.tipo === 'entrada' ? '#0f8a3c' : '#c00000';
-        const sinal = m.tipo === 'entrada' ? '+' : '-';
-        const delBtn = m._manual
-          ? `<button class="btn-del" onclick="delMovimento('${m.id}')">✕</button>`
-          : `<span style="color:#aaa;font-size:11px">venda</span>`;
-        return `<tr>
-          <td>${fmtDate(m.data)}</td>
-          <td style="color:${cor};font-weight:bold">${m.tipo==='entrada'?'Entrada':'Saída'}</td>
-          <td>${m.descricao}</td>
-          <td style="color:${cor};font-weight:bold">${sinal} ${fmt(m.valor)}</td>
-          <td>${delBtn}</td>
-        </tr>`;
-      }).join('');
+  const tbody = document.querySelector('#tab-banco-table tbody');
+  tbody.innerHTML = movimentos.length ? [...movimentos].reverse().map(m =>
+    `<tr>
+      <td>${fmtDate(m.data)}</td>
+      <td style="color:${m.tipo==='entrada'?'#1a7a3e':'#c0392b'};font-weight:600">${m.tipo==='entrada'?'Entrada':'Saída'}</td>
+      <td>${m.desc}</td>
+      <td style="color:${m.tipo==='entrada'?'#1a7a3e':'#c0392b'};font-weight:700">${m.tipo==='entrada'?'+':'-'}${fmt(m.valor)}</td>
+      <td><button class="btn btn-danger btn-sm" onclick="removeMov('${m.id}')">✕</button></td>
+    </tr>`
+  ).join('') : '<tr><td colspan="5" style="text-align:center;color:#999;padding:16px">Sem movimentações</td></tr>';
 }
 
-async function saveSaldoInicial() {
-  const val = parseFloat(document.getElementById('b-saldo-inicial').value)||0;
-  if (!state.banco) state.banco = { saldoInicial: 0, movimentos: [] };
-  state.banco.saldoInicial = val;
-  await saveData();
+function saveSaldoInicial() {
+  state.banco.saldoInicial = parseFloat(document.getElementById('banco-inicial').value) || 0;
+  saveData(); render();
 }
 
-async function addMovimento() {
+function addMovimento() {
   const data = document.getElementById('b-data').value;
   const tipo = document.getElementById('b-tipo').value;
-  const descricao = document.getElementById('b-desc').value.trim();
-  const valor = parseFloat(document.getElementById('b-valor').value)||0;
-  if (!data || !descricao) { alert('Preencha todos os campos.'); return; }
-  if (!state.banco) state.banco = { saldoInicial: 0, movimentos: [] };
-  if (!state.banco.movimentos) state.banco.movimentos = [];
-  state.banco.movimentos.push({ id: uid(), data, tipo, descricao, valor });
+  const desc = document.getElementById('b-desc').value.trim();
+  const valor = parseFloat(document.getElementById('b-valor').value);
+  if (!data || !desc || isNaN(valor) || valor <= 0) { alert('Preencha todos os campos.'); return; }
+  state.banco.movimentos.push({ id: uid(), data, tipo, desc, valor });
   document.getElementById('b-desc').value = '';
-  document.getElementById('b-valor').value = '0';
-  await saveData();
+  document.getElementById('b-valor').value = 0;
+  buildMonthFilter();
+  saveData(); render();
 }
 
-async function delMovimento(id) {
-  if (!confirm('Excluir esta movimentação?')) return;
-  state.banco.movimentos = (state.banco.movimentos||[]).filter(x => x.id !== id);
-  await saveData();
+function removeMov(id) {
+  if (!confirm('Remover esta movimentação?')) return;
+  state.banco.movimentos = state.banco.movimentos.filter(m => m.id !== id);
+  saveData(); render();
 }
 
-// ─── DROPDOWNS ────────────────────────────────────────────────────────────────
-function buildItemDropdowns() {
-  const itens = Object.keys(state.precos||{});
-  ['v-item','r-item'].forEach(id => {
-    const sel = document.getElementById(id);
-    const cur = sel.value;
-    sel.innerHTML = itens.map(i => `<option value="${i}"${i===cur?' selected':''}>${i}</option>`).join('');
-  });
-}
-
-// ─── INIT ─────────────────────────────────────────────────────────────────────
-autoLogin();
+// ─── INIT ────────────────────────────────────────────────────────────────────
+(function init() {
+  document.getElementById('loading').style.display = 'flex';
+  const saved = localStorage.getItem(PWD_KEY);
+  if (saved) {
+    pwd = saved;
+    loadData();
+  } else {
+    document.getElementById('loading').style.display = 'none';
+  }
+})();
 </script>
 </body>
 </html>

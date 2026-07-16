@@ -257,6 +257,13 @@ tbody td{padding:9px 12px;vertical-align:middle}
       </div>
     </div>
     <div class="section-title">Histórico de reposições</div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap">
+      <label style="font-size:13px;color:#555;font-weight:600">🔍 Filtrar por NF:</label>
+      <select id="repo-nf-filter" onchange="renderReposicao()" style="padding:6px 10px;border:1px solid #ccd;border-radius:6px;font-size:13px;min-width:180px">
+        <option value="">Todas as notas</option>
+      </select>
+    </div>
+    <div id="repo-nf-summary" style="display:none;margin-bottom:14px"></div>
     <div class="table-wrap"><table id="tab-repos">
       <thead><tr><th>Data</th><th>NF</th><th>Item</th><th>Qtd</th><th>Preço Compra</th><th>Preço Venda</th><th>Total Compra</th><th>Margem</th><th></th></tr></thead>
       <tbody></tbody>
@@ -336,7 +343,7 @@ tbody td{padding:9px 12px;vertical-align:middle}
 </div>
 
 <script>
-// ─── CONFIG ─────────────────────────────────────────────────────────────────
+// ─── CONFIG ──────────────────────────────────────────────────────────────────
 const API = '/api/data';
 const PWD_KEY = 'salgados_pwd';
 
@@ -833,9 +840,60 @@ document.getElementById('modal-cliente').addEventListener('click', function(e) {
 });
 
 // ─── REPOSIÇÃO ───────────────────────────────────────────────────────────────
+function getNfFilter() {
+  return document.getElementById('repo-nf-filter')?.value || '';
+}
+
+function buildNfFilter() {
+  const sel = document.getElementById('repo-nf-filter');
+  if (!sel) return;
+  const prev = sel.value;
+  const nfs = [...new Set(state.reposicoes.map(r => r.nf).filter(Boolean))].sort();
+  sel.innerHTML = '<option value="">Todas as notas</option>' +
+    nfs.map(nf => `<option value="${nf}" ${nf===prev?'selected':''}>${nf}</option>`).join('');
+}
+
 function renderReposicao() {
+  buildNfFilter();
   const mes = getMesFilter();
-  const repos = state.reposicoes.filter(r => !mes || getMonthFromDate(r.data) === mes);
+  const nfFilter = getNfFilter();
+  let repos = state.reposicoes.filter(r => !mes || getMonthFromDate(r.data) === mes);
+  if (nfFilter) repos = repos.filter(r => r.nf === nfFilter);
+
+  const summaryEl = document.getElementById('repo-nf-summary');
+  if (nfFilter && repos.length) {
+    const totQtd = repos.reduce((s,r) => s + (r.qtd||0), 0);
+    const totCusto = repos.reduce((s,r) => s + (r.precoCompra||0)*(r.qtd||0), 0);
+    const totVenda = repos.reduce((s,r) => s + (r.precoVenda||0)*(r.qtd||0), 0);
+    const totResultado = totVenda - totCusto;
+    const resCor = totResultado >= 0 ? '#1a7a3e' : '#c0392b';
+    summaryEl.style.display = '';
+    summaryEl.innerHTML = `
+      <div style="background:#fff;border-radius:10px;box-shadow:0 1px 6px rgba(0,0,0,.08);padding:16px 20px;border-left:4px solid #4472C4">
+        <div style="font-size:12px;font-weight:700;color:#4472C4;text-transform:uppercase;letter-spacing:.5px;margin-bottom:14px">📦 Resumo da nota ${nfFilter}</div>
+        <div style="display:flex;gap:16px;flex-wrap:wrap">
+          <div style="background:#eef3ff;border-radius:8px;padding:12px 18px;min-width:140px;text-align:center">
+            <div style="font-size:11px;color:#4472C4;font-weight:600;margin-bottom:4px">TOTAL UNIDADES</div>
+            <div style="font-size:22px;font-weight:700;color:#4472C4">${totQtd}</div>
+          </div>
+          <div style="background:#fff4e6;border-radius:8px;padding:12px 18px;min-width:140px;text-align:center">
+            <div style="font-size:11px;color:#e67e22;font-weight:600;margin-bottom:4px">CUSTO TOTAL COMPRA</div>
+            <div style="font-size:22px;font-weight:700;color:#e67e22">${fmt(totCusto)}</div>
+          </div>
+          <div style="background:#eafaf1;border-radius:8px;padding:12px 18px;min-width:140px;text-align:center">
+            <div style="font-size:11px;color:#1a7a3e;font-weight:600;margin-bottom:4px">FAT. POTENCIAL VENDA</div>
+            <div style="font-size:22px;font-weight:700;color:#1a7a3e">${fmt(totVenda)}</div>
+          </div>
+          <div style="background:${totResultado>=0?'#eafaf1':'#fdecea'};border-radius:8px;padding:12px 18px;min-width:140px;text-align:center">
+            <div style="font-size:11px;color:${resCor};font-weight:600;margin-bottom:4px">RESULTADO POTENCIAL</div>
+            <div style="font-size:22px;font-weight:700;color:${resCor}">${fmt(totResultado)}</div>
+          </div>
+        </div>
+      </div>`;
+  } else {
+    summaryEl.style.display = 'none';
+  }
+
   const tbody = document.querySelector('#tab-repos tbody');
   tbody.innerHTML = repos.length ? [...repos].reverse().map(r => {
     const totalCompra = (r.precoCompra||0) * (r.qtd||0);
